@@ -6,10 +6,18 @@ extends Area2D
 
 
 func _on_body_entered(body: Node2D) -> void:
-	if body.name == "PLAYER":
-		print("ENTERED")
-		player.lerp_movement(true)
+	if is_instance_valid(player):
+		if body.name == "PLAYER":
+			print("ENTERED")
+			player.lerp_movement(true)
+			player.upade_stats(-100, 100)
+			player.energy_timer.start()
+
 
 
 func _on_body_exited(body: Node2D) -> void:
-	player.lerp_movement(false)
+	if is_instance_valid(player):
+		player.lerp_movement(false)
+		player.upade_stats(-300, 150)
+		player.energy_timer.stop()
+	

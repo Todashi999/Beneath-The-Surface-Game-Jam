@@ -1,8 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://c1g1qt38utjwb"]
+[gd_scene load_steps=4 format=3 uid="uid://c1g1qt38utjwb"]
 
 [ext_resource type="Script" uid="uid://bxd7fhtk5cxt" path="res://PLAYER/player.gd" id="1_i10xq"]
+[ext_resource type="Texture2D" uid="uid://xy7ayl5wtlew" path="res://ASSETS/Deltarune Undertale Sprites1.png" id="2_xmmt6"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_x3syo"]
+radius = 8.0
+height = 32.0
 
 [node name="PLAYER" type="CharacterBody2D" groups=["PLAYER"]]
 script = ExtResource("1_i10xq")
@@ -11,3 +14,26 @@ script = ExtResource("1_i10xq")
 shape = SubResource("CapsuleShape2D_x3syo")
 
 [node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="JumpBufferTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[node name="DashCooldownTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, 4)
+texture = ExtResource("2_xmmt6")
+
+[node name="energy label" type="Label" parent="."]
+offset_left = -16.0
+offset_top = -20.0
+offset_right = 24.0
+offset_bottom = 3.0
+text = "100"
+
+[node name="EnergyTimer" type="Timer" parent="."]
+
+[connection signal="timeout" from="DashCooldownTimer" to="." method="_on_dash_cooldown_timer_timeout"]
+[connection signal="timeout" from="EnergyTimer" to="." method="_on_energy_timer_timeout"]
