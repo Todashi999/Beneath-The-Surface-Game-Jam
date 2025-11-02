@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bvlqtuaqqcf6l"]
+
+[ext_resource type="Script" uid="uid://5tl5w6w31q7o" path="res://WORLD/liquid_zone.gd" id="1_17sqp"]
+
+[node name="gravataional_zone" type="Node2D"]
+script = ExtResource("1_17sqp")
