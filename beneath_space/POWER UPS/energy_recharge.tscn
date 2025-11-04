@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://8vctkqrwbqot"]
+
+[ext_resource type="Script" uid="uid://cnwcrg1xmol8q" path="res://POWER UPS/energy_recharge.gd" id="1_lwdtq"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bsv5b"]
+
+[node name="energy_recharge" type="Area2D"]
+script = ExtResource("1_lwdtq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_bsv5b")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

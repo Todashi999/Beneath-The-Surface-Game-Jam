@@ -12,8 +12,9 @@ var JUMP_VELOCITY = -300.0
 const WALL_JUMP_VELOCITY = -350
 var SPEED = 150.0
 var acceleration: float = 12.5
-var friction: float = 40.5
+var friction: float = 10.5
 const AIR_FRICTION: float = 100
+const WATER_FRICTION: float = 10000
 var water_accel: float = 1000
 
 var wall_jump_recoil = 300
@@ -61,17 +62,10 @@ func _physics_process(delta: float) -> void:
 			velocity.y += gravity * delta
 		else:
 			velocity.y += gravity * delta * 0.15
-	#
-	#if is_on_floor():
-		#coyote_timer = COYOTE_TIME
-	#else:
-		#coyote_timer -= delta
-	#if dash_cooldown_timer:
+
 	if !is_dashing && !can_dash:
 		can_dash = true
 		dash_effect()
-
-
 
 	var direction := Input.get_axis("left", "right")
 	var x_input: float = Input.get_action_strength("right") - Input.get_action_strength("left")
@@ -81,10 +75,8 @@ func _physics_process(delta: float) -> void:
 			velocity.x = lerp(velocity.x, x_input * SPEED, velocity_weight)
 		true:
 			velocity.x = move_toward(velocity.x, direction * SPEED, water_accel * delta)
-	#if direction:
-		#velocity.x = direction * SPEED
-	#else:
-		#velocity.x = move_toward(velocity.x, 0, SPEED)
+
+
 	update_state(delta, direction)
 	death()
 	move_and_slide()

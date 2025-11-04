@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://b8h7dyh1ah227"]
+
+[ext_resource type="Script" uid="uid://b4riyd868jl41" path="res://COLLECTABLES/artifact.gd" id="1_srgl1"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hcgvj"]
+
+[node name="Artifact" type="Area2D"]
+script = ExtResource("1_srgl1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_hcgvj")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
