@@ -1,0 +1,126 @@
+[gd_scene load_steps=7 format=3 uid="uid://cni0cb0dxsx4u"]
+
+[ext_resource type="Script" uid="uid://dbulfllwxxqss" path="res://SYSTEMS/SCREEN_UI/main_menu.gd" id="1_2437b"]
+[ext_resource type="Script" uid="uid://dyk44w58nvndg" path="res://SYSTEMS/SCREEN_UI/menu_input_manager.gd" id="2_gsptq"]
+[ext_resource type="Script" uid="uid://x0wsli32p3mt" path="res://SYSTEMS/SCREEN_UI/menu_config.gd" id="3_f21en"]
+
+[sub_resource type="Resource" id="Resource_2437b"]
+script = ExtResource("3_f21en")
+menu_parent = NodePath("../HBoxContainer")
+default_button = NodePath("../HBoxContainer/VBoxContainer/play")
+button_parents = Array[NodePath]([NodePath("../HBoxContainer/VBoxContainer")])
+anim_player = NodePath("")
+show_anim = ""
+hide_anim = ""
+metadata/_custom_type_script = "uid://x0wsli32p3mt"
+
+[sub_resource type="Resource" id="Resource_gsptq"]
+script = ExtResource("3_f21en")
+menu_parent = NodePath("../Settings")
+default_button = NodePath("../Settings/VBoxContainer/back_to_menu")
+button_parents = Array[NodePath]([NodePath("../Settings/VBoxContainer")])
+anim_player = NodePath("")
+show_anim = ""
+hide_anim = ""
+metadata/_custom_type_script = "uid://x0wsli32p3mt"
+
+[sub_resource type="Resource" id="Resource_f21en"]
+script = ExtResource("3_f21en")
+menu_parent = NodePath("../options1")
+default_button = NodePath("../options1/exit")
+button_parents = Array[NodePath]([NodePath("../options1")])
+anim_player = NodePath("")
+show_anim = ""
+hide_anim = ""
+metadata/_custom_type_script = "uid://x0wsli32p3mt"
+
+[node name="Main_menu" type="Node2D"]
+script = ExtResource("1_2437b")
+
+[node name="MenuInputManager" type="Node" parent="."]
+script = ExtResource("2_gsptq")
+base_menu = SubResource("Resource_2437b")
+popup_menus = Array[ExtResource("3_f21en")]([SubResource("Resource_gsptq"), SubResource("Resource_f21en")])
+metadata/_custom_type_script = "uid://dyk44w58nvndg"
+
+[node name="BG" type="TextureRect" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Title" type="Label" parent="."]
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+offset_top = 64.0
+offset_right = 79.0
+offset_bottom = 165.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+
+[node name="play" type="Button" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "PLAY"
+
+[node name="options" type="Button" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "OPTIONS"
+
+[node name="exit_game" type="Button" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "EXIT"
+
+[node name="Settings" type="HBoxContainer" parent="."]
+visible = false
+offset_left = 84.0
+offset_top = 76.0
+offset_right = 212.0
+offset_bottom = 142.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Settings"]
+layout_mode = 2
+
+[node name="back_to_menu" type="Button" parent="Settings/VBoxContainer"]
+layout_mode = 2
+text = "BACK TO MENU"
+
+[node name="SETTINGS_1" type="Button" parent="Settings/VBoxContainer"]
+layout_mode = 2
+text = "SETTINGS"
+
+[node name="settings_anim" type="AnimationPlayer" parent="Settings"]
+
+[node name="options1" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="exit" type="Button" parent="options1"]
+layout_mode = 0
+offset_left = 224.0
+offset_top = 88.0
+offset_right = 265.0
+offset_bottom = 128.0
+text = "EXIT"
+
+[node name="HSlider" type="HSlider" parent="options1"]
+layout_mode = 0
+offset_left = 96.0
+offset_top = 48.0
+offset_right = 104.0
+offset_bottom = 64.0
+
+[node name="HSlider2" type="HSlider" parent="options1/HSlider"]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 16.0
+
+[connection signal="pressed" from="HBoxContainer/VBoxContainer/play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="HBoxContainer/VBoxContainer/options" to="." method="_on_options_pressed"]
+[connection signal="pressed" from="HBoxContainer/VBoxContainer/exit_game" to="." method="_on_exit_game_pressed"]
+[connection signal="pressed" from="Settings/VBoxContainer/back_to_menu" to="." method="_on_back_to_menu_pressed"]
+[connection signal="pressed" from="Settings/VBoxContainer/SETTINGS_1" to="." method="_on_settings_1_pressed"]
+[connection signal="pressed" from="options1/exit" to="." method="_on_exit_pressed"]
