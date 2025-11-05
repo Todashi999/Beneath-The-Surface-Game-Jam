@@ -1,11 +1,18 @@
-[gd_scene load_steps=4 format=3 uid="uid://b3aulopd4gf6w"]
+[gd_scene load_steps=6 format=3 uid="uid://b3aulopd4gf6w"]
 
 [ext_resource type="Texture2D" uid="uid://dhdhc42wmrb05" path="res://ASSETS/Deltarune Undertale Sprites7.png" id="1_ctqh8"]
 [ext_resource type="Script" uid="uid://dsymnb2wwnijf" path="res://ENEMIES/locked_axis_enemy.gd" id="1_oqln8"]
+[ext_resource type="PackedScene" uid="uid://b06uac3jqkxk5" path="res://SYSTEMS/HITBOX|HURTBOX/hitbox.tscn" id="3_gd4tf"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_6hmhg"]
+radius = 4.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7kfa1"]
+radius = 16.0
 
 [node name="locked_axis_enemy" type="CharacterBody2D"]
+collision_layer = 3
+collision_mask = 3
 script = ExtResource("1_oqln8")
 x_value = 1.0
 
@@ -26,3 +33,10 @@ target_position = Vector2(-16, 0)
 
 [node name="WallDetection2" type="RayCast2D" parent="."]
 target_position = Vector2(16, 0)
+
+[node name="Hitbox" parent="." instance=ExtResource("3_gd4tf")]
+
+[node name="CollisionShape2D" parent="Hitbox" index="0"]
+shape = SubResource("CircleShape2D_7kfa1")
+
+[editable path="Hitbox"]

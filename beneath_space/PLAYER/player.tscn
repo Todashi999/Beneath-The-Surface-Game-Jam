@@ -1,7 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://c1g1qt38utjwb"]
+[gd_scene load_steps=6 format=3 uid="uid://c1g1qt38utjwb"]
 
 [ext_resource type="Script" uid="uid://bxd7fhtk5cxt" path="res://PLAYER/player.gd" id="1_i10xq"]
 [ext_resource type="Texture2D" uid="uid://xy7ayl5wtlew" path="res://ASSETS/Deltarune Undertale Sprites1.png" id="2_xmmt6"]
+[ext_resource type="Script" uid="uid://cqvhn2npp6mrj" path="res://SYSTEMS/HITBOX|HURTBOX/health.gd" id="3_bql2f"]
+[ext_resource type="PackedScene" uid="uid://b2h1ca3cqqefc" path="res://SYSTEMS/HITBOX|HURTBOX/hurtbox.tscn" id="4_gvfuq"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_x3syo"]
 radius = 4.0
@@ -35,5 +37,14 @@ text = "100"
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
+[node name="Health" type="Node" parent="." groups=["PLAYER_HEALTH"]]
+script = ExtResource("3_bql2f")
+max_health = 100
+
+[node name="hurtbox" parent="." node_paths=PackedStringArray("health") instance=ExtResource("4_gvfuq")]
+health = NodePath("../Health")
+
 [connection signal="timeout" from="DashCooldownTimer" to="." method="_on_dash_cooldown_timer_timeout"]
 [connection signal="timeout" from="EnergyTimer" to="." method="_on_energy_timer_timeout"]
+[connection signal="health_changed" from="Health" to="." method="_on_health_health_changed"]
+[connection signal="health_depleted" from="Health" to="." method="_on_health_health_depleted"]

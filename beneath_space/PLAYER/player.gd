@@ -6,6 +6,7 @@ extends CharacterBody2D
 @onready var dash_cooldown_timer: Timer = $DashCooldownTimer
 @onready var energy_label: Label = $"energy label"
 @onready var energy_timer: Timer = $EnergyTimer
+@onready var health: Health = $Health
 
 #MOVEMENT VARIABLES
 var JUMP_VELOCITY = -300.0
@@ -53,7 +54,9 @@ var water_movement: bool = false
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 func _ready() -> void:
+	health.health = energy
 	energy_label.text = str(energy)
+
 
 func _physics_process(delta: float) -> void:
 
@@ -146,11 +149,11 @@ func input_jump(force):
 	if Input.is_action_just_pressed("jump"):
 		#velocity.y += force
 		jump_buffer_timer.start()
-		print(jump_buffer_timer, " STARTED")
+		#print(jump_buffer_timer, " STARTED")
 		match current_state:
 			FLOOR:
 				if !jump_buffer_timer.is_stopped():
-					print(!jump_buffer_timer.is_stopped(), " ISNT STOPPED")
+					#print(!jump_buffer_timer.is_stopped(), " ISNT STOPPED")
 					velocity.y += force
 			WATER:
 				velocity.y += force
@@ -225,3 +228,14 @@ func _on_energy_timer_timeout() -> void:
 func death():
 	if energy <= 0:
 		queue_free()
+
+
+func _on_health_health_depleted() -> void:
+	print('ah')
+
+
+func _on_health_health_changed(diff: int) -> void:
+	energy += diff * 10
+	energy_label.text = str(energy)
+	print(diff, ' ', energy)
+	
