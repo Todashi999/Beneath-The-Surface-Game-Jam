@@ -1,5 +1,8 @@
 extends CharacterBody2D
 
+@export var bullet_node: PackedScene
+var theta: float = 0
+@export_range(0,2*PI) var alpha: float = 0.0
 
 @export var x_value: float
 @export var y_value: float
@@ -43,19 +46,25 @@ func _physics_process(delta: float) -> void:
 	prev_wall_col = wall_col
 	prev_wall_col_2 =  wall_col_2
 	
-	#
-	#match chance:
-		#0:
-			#change_dir(1,0)
-		#1:
-			#change_dir(0,1)
-		#2:
-			#change_dir(-1,0)
-		#3:
-			#change_dir(0,-1)
 	move_and_slide()
 
 func change_dir(x_value, y_value):
 	direction = Vector2(x_value, y_value)
+
+func get_vector(angle):
+	theta = angle + alpha
+	return Vector2(cos(theta), sin(theta))
+
+func shoot(angle):
+	var bullet = bullet_node.instantiate()
 	
+	#bullet.owner_name = "locked_axis_enemy"
 	
+	bullet.position = global_position
+	bullet.direction = get_vector(angle)
+	
+	get_tree().current_scene.call_deferred("add_child", bullet)
+
+
+func _on_speed_timeout():
+	shoot(theta)

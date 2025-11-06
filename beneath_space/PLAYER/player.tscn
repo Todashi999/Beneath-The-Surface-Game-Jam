@@ -36,6 +36,8 @@ text = "100"
 [node name="EnergyTimer" type="Timer" parent="."]
 
 [node name="Camera2D" type="Camera2D" parent="."]
+limit_smoothed = true
+position_smoothing_speed = 12.0
 
 [node name="Health" type="Node" parent="." groups=["PLAYER_HEALTH"]]
 script = ExtResource("3_bql2f")

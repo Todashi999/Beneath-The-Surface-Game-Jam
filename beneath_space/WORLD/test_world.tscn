@@ -50,6 +50,9 @@ position = Vector2(663, 171)
 
 [node name="locked_axis_enemy" parent="." instance=ExtResource("4_of6sg")]
 position = Vector2(360, 416)
+collision_layer = 3
+collision_mask = 3
+alpha = 1.0
 direction = Vector2(1, 0)
 movement_speed = 200
 
@@ -71,4 +74,6 @@ position = Vector2(0, -15)
 [connection signal="key_collected" from="Key" to="Door" method="_on_key_key_collected"]
 
 [editable path="gravational_area"]
+[editable path="locked_axis_enemy"]
+[editable path="locked_axis_enemy/Hitbox"]
 [editable path="Door"]
