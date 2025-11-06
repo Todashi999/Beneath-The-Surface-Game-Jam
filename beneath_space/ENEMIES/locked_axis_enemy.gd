@@ -24,7 +24,6 @@ var prev_wall_col_2 := false
 func _physics_process(delta: float) -> void:
 	var chance = randi() % 4
 	
-	
 	velocity.x = direction.x * movement_speed
 	velocity.y = direction.y * movement_speed
 	

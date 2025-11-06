@@ -3,6 +3,7 @@ extends CharacterBody2D
 
 #ON READY
 @onready var jump_buffer_timer: Timer = $JumpBufferTimer
+@onready var stun_timer: Timer = $StunTimer
 @onready var dash_cooldown_timer: Timer = $DashCooldownTimer
 @onready var energy_label: Label = $"energy label"
 @onready var energy_timer: Timer = $EnergyTimer
@@ -21,6 +22,10 @@ var water_accel: float = 1000
 var wall_jump_recoil = 300
 var wall_slide_gravity = 0.8
 var can_wall_jump: bool = true
+
+#KNOCH BACK
+var knockback: Vector2 = Vector2.ZERO
+var knockback_timer: float = 0.0
 
 #DASH 
 const DASH_AMOUNT: float = 500.0
@@ -50,6 +55,7 @@ const WALL = 5
 const WATER = 6
 
 var water_movement: bool = false
+var can_move: bool = true
 
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
@@ -73,16 +79,25 @@ func _physics_process(delta: float) -> void:
 	var direction := Input.get_axis("left", "right")
 	var x_input: float = Input.get_action_strength("right") - Input.get_action_strength("left")
 	var velocity_weight: float = delta * (acceleration if x_input else friction)
-	match water_movement:
-		false:
-			velocity.x = lerp(velocity.x, x_input * SPEED, velocity_weight)
-		true:
-			velocity.x = move_toward(velocity.x, direction * SPEED, water_accel * delta)
+	if can_move:
+		match water_movement:
+			false:
+				velocity.x = lerp(velocity.x, x_input * SPEED, velocity_weight)
+			true:
+				velocity.x = move_toward(velocity.x, direction * SPEED, water_accel * delta)
 
-
-	update_state(delta, direction)
-	death()
+	if knockback_timer > 0.0:
+		velocity = knockback
+		knockback_timer -= delta
+		can_move = false
+		if knockback_timer <= 0.0:
+			knockback = Vector2.ZERO
+	else:
+		can_move = true
+		update_state(delta, direction)
 	move_and_slide()
+	death()
+	
 
 func change_energy(amount):
 	energy -= amount
@@ -159,23 +174,6 @@ func input_jump(force):
 				velocity.y += force
 			WALL:
 				velocity.y += force
-		
-	#if Input.is_action_just_pressed("ui_accept"):
-		#jump_buffer_timer.start()
-	#if current_state == FLOOR && !jump_buffer_timer.is_stopped():
-		#velocity.y += force
-	#elif current_state == WATER && Input.is_action_just_pressed("ui_accept"):
-		#velocity.y += force
-		
-	#match current_state:
-		#FLOOR:
-			#if Input.is_action_just_pressed("ui_accept") && coyote_timer > 0:
-				#velocity.y = force
-				#coyote_timer = 0
-		#WATER:
-			#if Input.is_action_just_pressed("ui_accept"):
-				#velocity.y = force
-				#
 
 func check_dash(delta):
 	var input_dir: Vector2 = Vector2(
@@ -216,6 +214,10 @@ func dash_effect():
 func lerp_movement(bool):
 	water_movement = bool
 
+func apply_knockback(direction: Vector2, force: float, knockback_duration: float) -> void:
+	knockback = direction * force
+	knockback_timer = knockback_duration
+
 func upade_stats(jump_value, speed_value):
 	JUMP_VELOCITY = jump_value
 	SPEED = speed_value
@@ -235,7 +237,14 @@ func _on_health_health_depleted() -> void:
 
 
 func _on_health_health_changed(diff: int) -> void:
-	energy += diff * 10
+	energy += diff * 5
 	energy_label.text = str(energy)
-	print(diff, ' ', energy)
+	stun()
+	#print(diff, ' ', energy)
 	
+func stun():
+	can_move = false
+	stun_timer.start()
+
+func _on_stun_timer_timeout() -> void:
+	can_move = true

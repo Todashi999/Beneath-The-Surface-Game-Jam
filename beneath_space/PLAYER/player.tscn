@@ -22,6 +22,9 @@ one_shot = true
 [node name="DashCooldownTimer" type="Timer" parent="."]
 one_shot = true
 
+[node name="StunTimer" type="Timer" parent="."]
+one_shot = true
+
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0, 4)
 texture = ExtResource("2_xmmt6")
@@ -47,6 +50,7 @@ max_health = 100
 health = NodePath("../Health")
 
 [connection signal="timeout" from="DashCooldownTimer" to="." method="_on_dash_cooldown_timer_timeout"]
+[connection signal="timeout" from="StunTimer" to="." method="_on_stun_timer_timeout"]
 [connection signal="timeout" from="EnergyTimer" to="." method="_on_energy_timer_timeout"]
 [connection signal="health_changed" from="Health" to="." method="_on_health_health_changed"]
 [connection signal="health_depleted" from="Health" to="." method="_on_health_health_depleted"]

@@ -21,5 +21,6 @@ func _on_detection_area_body_entered(body: Node2D) -> void:
 	if is_instance_valid(player):
 		if body.name == "PLAYER":
 			can_move = true
-
+			var knockback_direction = (player.global_position - global_position).normalized()
+			player.apply_knockback(knockback_direction, 150.0, 1)
 #MAKE ON DEATH BULLET HELL
