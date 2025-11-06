@@ -1,6 +1,7 @@
-[gd_scene load_steps=11 format=3 uid="uid://bidqytvj5i0q3"]
+[gd_scene load_steps=12 format=3 uid="uid://bidqytvj5i0q3"]
 
 [ext_resource type="Texture2D" uid="uid://ccjtdw188p1ch" path="res://ASSETS/test_zone_tileset.png" id="1_144mu"]
+[ext_resource type="PackedScene" uid="uid://cse2f5m3qcyek" path="res://SYSTEMS/SCREEN_UI/pause_menu.tscn" id="1_evtvj"]
 [ext_resource type="PackedScene" uid="uid://c1g1qt38utjwb" path="res://PLAYER/player.tscn" id="2_5mnk0"]
 [ext_resource type="PackedScene" uid="uid://erobor61mo6" path="res://WORLD/gravational_area.tscn" id="3_5mnk0"]
 [ext_resource type="PackedScene" uid="uid://b3aulopd4gf6w" path="res://ENEMIES/locked_axis_enemy.tscn" id="4_of6sg"]
@@ -29,6 +30,9 @@ physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_of6sg")
 
 [node name="Test_World" type="Node2D"]
+
+[node name="PauseMenu" parent="." instance=ExtResource("1_evtvj")]
+layer = 2
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_imbuf")
