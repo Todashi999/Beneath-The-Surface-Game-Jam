@@ -1,12 +1,123 @@
-[gd_scene load_steps=4 format=3 uid="uid://blin2x7d4tsd3"]
+[gd_scene load_steps=18 format=3 uid="uid://blin2x7d4tsd3"]
 
 [ext_resource type="Script" uid="uid://d1biakoqrxtaa" path="res://WORLD/door.gd" id="1_u5240"]
+[ext_resource type="Texture2D" uid="uid://j25wi3wcm1co" path="res://ASSETS/WORLD_ASSETS/DOOR1.png" id="2_s4530"]
+[ext_resource type="Texture2D" uid="uid://bqvna3s61y4td" path="res://ASSETS/WORLD_ASSETS/DOOR2.png" id="3_m3gus"]
+[ext_resource type="Texture2D" uid="uid://c7kwpqqljvf5f" path="res://ASSETS/WORLD_ASSETS/DOOR3.png" id="4_6xfuk"]
+[ext_resource type="Texture2D" uid="uid://cv0sikkyc3gfr" path="res://ASSETS/WORLD_ASSETS/DOOR4.png" id="5_omfpl"]
+[ext_resource type="Texture2D" uid="uid://dgtjip6kv3kay" path="res://ASSETS/WORLD_ASSETS/DOOR5.png" id="6_grpvp"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3duja"]
 size = Vector2(20, 50)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_3duja"]
 radius = 45.607
+
+[sub_resource type="Animation" id="Animation_s4530"]
+resource_name = "default"
+length = 0.5
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"default"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4]
+}
+
+[sub_resource type="Animation" id="Animation_m3gus"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"default"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_6xfuk"]
+_data = {
+&"RESET": SubResource("Animation_m3gus"),
+&"default": SubResource("Animation_s4530")
+}
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kj4b7"]
+atlas = ExtResource("2_s4530")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_drdxn"]
+atlas = ExtResource("3_m3gus")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q2tat"]
+atlas = ExtResource("4_6xfuk")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jfgfi"]
+atlas = ExtResource("5_omfpl")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aaiil"]
+atlas = ExtResource("6_grpvp")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_g470b"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kj4b7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_drdxn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q2tat")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jfgfi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_aaiil")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
 
 [node name="Door" type="AnimatableBody2D"]
 script = ExtResource("1_u5240")
@@ -18,5 +129,16 @@ shape = SubResource("RectangleShape2D_3duja")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DoorDetection"]
 shape = SubResource("CircleShape2D_3duja")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_6xfuk")
+}
+autoplay = "default"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -8)
+sprite_frames = SubResource("SpriteFrames_g470b")
+autoplay = "default"
 
 [connection signal="body_entered" from="DoorDetection" to="." method="_on_door_detection_body_entered"]

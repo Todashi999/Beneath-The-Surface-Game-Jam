@@ -2,12 +2,15 @@ extends CharacterBody2D
 
 
 #ON READY
-@onready var jump_buffer_timer: Timer = $JumpBufferTimer
-@onready var stun_timer: Timer = $StunTimer
-@onready var dash_cooldown_timer: Timer = $DashCooldownTimer
+@onready var jump_buffer_timer: Timer = $Timers/JumpBufferTimer
+
+@onready var stun_timer: Timer = $Timers/StunTimer
+@onready var dash_cooldown_timer: Timer = $Timers/DashCooldownTimer
 @onready var energy_label: Label = $"energy label"
-@onready var energy_timer: Timer = $EnergyTimer
+@onready var energy_timer: Timer = $Timers/EnergyTimer
 @onready var health: Health = $Health
+@onready var anim_player: AnimationPlayer = $AnimationPlayer
+@onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 
 #MOVEMENT VARIABLES
 var JUMP_VELOCITY = -300.0
@@ -29,7 +32,7 @@ var knockback_timer: float = 0.0
 
 #DASH 
 const DASH_AMOUNT: float = 500.0
-const DASH_TIME : float = 0.16
+const DASH_TIME : float = 0.4
 
 var can_dash: bool = true
 var is_dashing: bool = false
@@ -54,6 +57,12 @@ const DASH = 4
 const WALL = 5
 const WATER = 6
 
+#ANIMATION
+var current_anim: String = ""
+var target_anim: String = ""
+var anim_hold_timer: float = 0.0  
+
+
 var water_movement: bool = false
 var can_move: bool = true
 
@@ -75,10 +84,19 @@ func _physics_process(delta: float) -> void:
 	if !is_dashing && !can_dash:
 		can_dash = true
 		dash_effect()
+	
+
 
 	var direction := Input.get_axis("left", "right")
 	var x_input: float = Input.get_action_strength("right") - Input.get_action_strength("left")
 	var velocity_weight: float = delta * (acceleration if x_input else friction)
+	
+	match x_input:
+		1.0:
+			sprite_flipped(false)
+		-1.0:
+			sprite_flipped(true)
+
 	if can_move:
 		match water_movement:
 			false:
@@ -95,9 +113,48 @@ func _physics_process(delta: float) -> void:
 	else:
 		can_move = true
 		update_state(delta, direction)
+	update_anim()
 	move_and_slide()
 	death()
 	
+	if anim_hold_timer > 0.0:
+		anim_hold_timer -= delta
+		if anim_hold_timer < 0.0:
+			anim_hold_timer = 0.0
+	
+	if target_anim != current_anim:
+		anim_player.play(target_anim)
+		current_anim = target_anim
+
+func update_anim():
+	if anim_hold_timer > 0.0:
+		return
+		
+	if is_dashing:
+		target_anim = "spin"
+		return
+	
+	if water_movement:
+		if Input.is_action_just_pressed("jump"):
+			target_anim = "swim_jump"
+		elif abs(velocity.x) < 10 and abs(velocity.y) < 10:
+			target_anim = "swim"
+		else:
+			target_anim = "swim"
+		return
+	
+	if is_on_floor():
+		if abs(velocity.x) < 10:
+			target_anim = "idle"
+		else:
+			target_anim = "move"
+		return
+	
+	if velocity.y < 0:
+		target_anim = "jump"
+	else:
+		target_anim = "fall"
+
 
 func change_energy(amount):
 	energy -= amount
@@ -114,8 +171,7 @@ func update_state(delta, direction):
 		current_state = WALL
 	if water_movement:
 		current_state = WATER
-	#if Input.is_action_just_pressed("ui_accept"):
-		#current_state = JUMP
+
 	
 	match current_state:
 		FLOOR:
@@ -132,6 +188,7 @@ func update_state(delta, direction):
 			#print("AIR", current_state)
 		DASH:
 			pass
+			#play_anim("spin")
 			#print("DASH", current_state)
 		WALL:
 			check_wall_jump(direction)
@@ -170,10 +227,18 @@ func input_jump(force):
 				if !jump_buffer_timer.is_stopped():
 					#print(!jump_buffer_timer.is_stopped(), " ISNT STOPPED")
 					velocity.y += force
+					target_anim = "jump"
+					anim_hold_timer = 0.25
 			WATER:
 				velocity.y += force
+				if target_anim != "swim_jump":
+					target_anim = "swim_jump"
+					anim_hold_timer = 0.35
 			WALL:
 				velocity.y += force
+				target_anim = "wall_jump"
+				anim_hold_timer = 0.25
+
 
 func check_dash(delta):
 	var input_dir: Vector2 = Vector2(
@@ -182,6 +247,7 @@ func check_dash(delta):
 	
 	if input_dir.x != 0:
 		dash_dir.x = input_dir.x
+	
 	
 	if can_dash && Input.is_action_just_pressed("dash"):
 		var final_dash_dir: Vector2 = dash_dir
@@ -195,11 +261,27 @@ func check_dash(delta):
 		
 		dash_effect()
 		change_energy(5)
+	
+		target_anim = "spin"
+		
 		velocity.x = final_dash_dir.x * DASH_AMOUNT
 		velocity.y = final_dash_dir.y * DASH_AMOUNT/2
 	
 	if is_dashing:
 		dash_timer -= delta
+		match input_dir:
+			Vector2(0,1):
+				if is_dashing:
+					global_rotation_degrees = 180
+			Vector2(0,-1):
+				if is_dashing:
+					global_rotation_degrees = 0
+			Vector2(1,0):
+				if is_dashing:
+					global_rotation_degrees = 90
+			Vector2(-1,0):
+				if is_dashing:
+					global_rotation_degrees = -90
 		if dash_timer <= 0:
 			is_dashing = false
 
@@ -207,6 +289,8 @@ func check_dash(delta):
 func dash_effect():
 	if can_dash:
 		modulate = Color("ffffff")
+		global_rotation_degrees = 0
+		
 	else:
 		modulate = Color("111522")
 		
@@ -222,6 +306,9 @@ func upade_stats(jump_value, speed_value):
 	JUMP_VELOCITY = jump_value
 	SPEED = speed_value
 	
+
+func sprite_flipped(bool):
+	sprite.flip_h = bool
 
 
 func _on_energy_timer_timeout() -> void:
