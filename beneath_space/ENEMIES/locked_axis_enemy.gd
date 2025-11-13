@@ -7,6 +7,8 @@ var theta: float = 0
 @export var x_value: float
 @export var y_value: float
 
+@export var can_shoot: bool = true
+
 @export var direction: Vector2
 @export var movement_speed: int
 
@@ -21,8 +23,8 @@ var prev_ceil_col := false
 var prev_wall_col := false
 var prev_wall_col_2 := false
 
-func _physics_process(delta: float) -> void:
-	var chance = randi() % 4
+func _physics_process(_delta: float) -> void:
+	var _chance = randi() % 4
 	
 	velocity.x = direction.x * movement_speed
 	velocity.y = direction.y * movement_speed
@@ -66,4 +68,7 @@ func shoot(angle):
 
 
 func _on_speed_timeout():
-	shoot(theta)
+	if can_shoot:
+		shoot(theta)
+	else:
+		return

@@ -1,0 +1,150 @@
+[gd_scene load_steps=19 format=3 uid="uid://be6mgxahw5c0o"]
+
+[ext_resource type="Texture2D" uid="uid://dghacsecoeak7" path="res://ASSETS/WORLD_ASSETS/FLOATING_PLATFORM1.png" id="1_nlb05"]
+[ext_resource type="Texture2D" uid="uid://bfcmnxs6ps6yn" path="res://ASSETS/WORLD_ASSETS/FLOATING_PLATFORM2.png" id="2_qpenu"]
+[ext_resource type="Texture2D" uid="uid://bsa8ofaxsus51" path="res://ASSETS/WORLD_ASSETS/FLOATING_PLATFORM3.png" id="3_ig77x"]
+[ext_resource type="Texture2D" uid="uid://d080kw68fqcwm" path="res://ASSETS/WORLD_ASSETS/FLOATING_PLATFORM4.png" id="4_wl1fv"]
+[ext_resource type="Texture2D" uid="uid://rqfpqt27ytx0" path="res://ASSETS/WORLD_ASSETS/FLOATING_PLATFORM5.png" id="5_jsm67"]
+[ext_resource type="Texture2D" uid="uid://c3ujlqbp0i7p0" path="res://ASSETS/WORLD_ASSETS/FLOATING_PLATFORM6.png" id="6_qgg6w"]
+
+[sub_resource type="Animation" id="Animation_dsq0m"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"default"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_0p6cb"]
+resource_name = "default"
+length = 0.6
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"default"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_y0xp2"]
+_data = {
+&"RESET": SubResource("Animation_dsq0m"),
+&"default": SubResource("Animation_0p6cb")
+}
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rqbn6"]
+atlas = ExtResource("1_nlb05")
+region = Rect2(0, 0, 80, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_okcdd"]
+atlas = ExtResource("2_qpenu")
+region = Rect2(0, 0, 80, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lcuuu"]
+atlas = ExtResource("3_ig77x")
+region = Rect2(0, 0, 80, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f7myf"]
+atlas = ExtResource("4_wl1fv")
+region = Rect2(0, 0, 80, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cdiit"]
+atlas = ExtResource("5_jsm67")
+region = Rect2(0, 0, 80, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4e31j"]
+atlas = ExtResource("5_jsm67")
+region = Rect2(0, 0, 80, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u87bd"]
+atlas = ExtResource("6_qgg6w")
+region = Rect2(0, 0, 80, 80)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_rqbn6"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rqbn6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_okcdd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lcuuu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f7myf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cdiit")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4e31j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u87bd")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_okcdd"]
+size = Vector2(48, 8)
+
+[node name="SAND_PLATFORM" type="AnimatableBody2D"]
+scale = Vector2(2, 2)
+sync_to_physics = false
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../AnimatedSprite2D")
+libraries = {
+&"": SubResource("AnimationLibrary_y0xp2")
+}
+autoplay = "default"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_rqbn6")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -2)
+shape = SubResource("RectangleShape2D_okcdd")
+one_way_collision = true

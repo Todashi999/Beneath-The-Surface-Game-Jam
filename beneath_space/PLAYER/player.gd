@@ -69,6 +69,8 @@ var can_move: bool = true
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 func _ready() -> void:
+	add_to_group("can_interact_with_water")
+	
 	health.health = energy
 	energy_label.text = str(energy)
 
@@ -206,7 +208,7 @@ func check_jump():
 			input_jump(JUMP_VELOCITY)
 
 
-func check_wall_jump(direction):
+func check_wall_jump(_direction):
 	match current_state:
 		WALL:
 			input_jump(WALL_JUMP_VELOCITY)

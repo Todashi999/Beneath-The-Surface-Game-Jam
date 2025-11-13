@@ -1,12 +1,24 @@
 extends AnimatableBody2D
 
-var door_opened: bool = false
+@export var door_id: String = "A" 
 
-func _on_key_key_collected(collected: Variant) -> void:
-	if collected:
+var door_opened: bool = false
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var player = get_tree().get_first_node_in_group("PLAYER")
+
+
+
+func _ready() -> void:
+	for key in get_tree().get_nodes_in_group("KEY"):
+		key.key_collected.connect(_on_key_key_collected)
+
+func _on_key_key_collected(collected_id: String) -> void:
+	if collected_id == door_id:
 		door_opened = true
+		#player.lerp_movement(true)
+
 
 
 func _on_door_detection_body_entered(body: Node2D) -> void:
-	if door_opened:
-		queue_free()
+	if door_opened and body.name == "PLAYER":
+		animation_player.play("fade_out")

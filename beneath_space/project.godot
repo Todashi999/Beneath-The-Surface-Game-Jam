@@ -26,6 +26,8 @@ window/stretch/mode="viewport"
 
 PLAYER=""
 ENEMY=""
+can_interact_with_water=""
+KEY=""
 
 [input]
 

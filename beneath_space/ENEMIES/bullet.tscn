@@ -1,19 +1,200 @@
-[gd_scene load_steps=4 format=3 uid="uid://1piv26fr88nh"]
+[gd_scene load_steps=16 format=3 uid="uid://1piv26fr88nh"]
 
 [ext_resource type="PackedScene" uid="uid://b06uac3jqkxk5" path="res://SYSTEMS/HITBOX|HURTBOX/hitbox.tscn" id="1_itn6y"]
 [ext_resource type="Script" uid="uid://b6fyhnhvbxs0j" path="res://ENEMIES/bullet.gd" id="1_sfq7l"]
+[ext_resource type="Shader" uid="uid://coyyspyiw13hi" path="res://SYSTEMS/pixel.gdshader" id="2_1cnyl"]
+[ext_resource type="Texture2D" uid="uid://cl66sbae8btri" path="res://ENEMIES/ENEMY_SPRITES/STARS1-sheet.png" id="3_36qqo"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3cuie"]
+shader = ExtResource("2_1cnyl")
+shader_parameter/outline_color = Color(0.945098, 0.964706, 0.941176, 1)
+shader_parameter/corner_pixel = true
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tyq07"]
+atlas = ExtResource("3_36qqo")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lpyvu"]
+atlas = ExtResource("3_36qqo")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yeuhv"]
+atlas = ExtResource("3_36qqo")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oj2v0"]
+atlas = ExtResource("3_36qqo")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_k4q7c"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tyq07")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lpyvu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yeuhv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oj2v0")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_euq76"]
+
+[sub_resource type="Animation" id="Animation_17wns"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"default"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.5, 0.5)]
+}
+
+[sub_resource type="Animation" id="Animation_5t4sw"]
+resource_name = "default"
+length = 0.4
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"default"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.0999, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="Animation" id="Animation_1cnyl"]
+resource_name = "fade_out"
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0.113725, 0.109804, 0.227451, 1), Color(0.454902, 0.180392, 0.564706, 0)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0.5, 0.5), Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ss5ye"]
+_data = {
+&"RESET": SubResource("Animation_17wns"),
+&"default": SubResource("Animation_5t4sw"),
+&"fade_out": SubResource("Animation_1cnyl")
+}
 
 [node name="bullet" type="Area2D"]
 scale = Vector2(0.5, 0.5)
 script = ExtResource("1_sfq7l")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+material = SubResource("ShaderMaterial_3cuie")
+sprite_frames = SubResource("SpriteFrames_k4q7c")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_euq76")
 
 [node name="Hitbox" parent="." instance=ExtResource("1_itn6y")]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_ss5ye")
+}
+autoplay = "default"
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
