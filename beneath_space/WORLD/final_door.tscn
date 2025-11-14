@@ -1,0 +1,279 @@
+[gd_scene load_steps=21 format=3 uid="uid://0up76d46bqs5"]
+
+[ext_resource type="Script" uid="uid://ccru5nh8inrcg" path="res://WORLD/final_door.gd" id="1_3jwuv"]
+[ext_resource type="Shader" uid="uid://coyyspyiw13hi" path="res://SYSTEMS/pixel.gdshader" id="1_m1uis"]
+[ext_resource type="Texture2D" uid="uid://dpkk23etrwmwh" path="res://ASSETS/WORLD_ASSETS/FINAL_TOME1.png" id="2_tx8fg"]
+[ext_resource type="Texture2D" uid="uid://ntko4gq60bg1" path="res://ASSETS/WORLD_ASSETS/FINAL_TOME2.png" id="3_3jwuv"]
+[ext_resource type="Texture2D" uid="uid://b20i1x7jvtyv7" path="res://ASSETS/WORLD_ASSETS/FINAL_TOME3.png" id="4_vctbs"]
+[ext_resource type="Texture2D" uid="uid://ieciqke26bi" path="res://ASSETS/WORLD_ASSETS/FINAL_TOME4.png" id="5_8qtr3"]
+[ext_resource type="Texture2D" uid="uid://h885ysg1hcj6" path="res://ASSETS/WORLD_ASSETS/FINAL_TOME5.png" id="6_xlo5e"]
+[ext_resource type="Texture2D" uid="uid://bot6jf8hwbh45" path="res://ASSETS/WORLD_ASSETS/LIGHT.png" id="7_tx8fg"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_cg4ft"]
+radius = 42.7551
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hp06c"]
+shader = ExtResource("1_m1uis")
+shader_parameter/outline_color = Color(0.113725, 0.109804, 0.227451, 1)
+shader_parameter/corner_pixel = true
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ioaxl"]
+atlas = ExtResource("2_tx8fg")
+region = Rect2(0, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y1od1"]
+atlas = ExtResource("3_3jwuv")
+region = Rect2(0, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u2ktd"]
+atlas = ExtResource("4_vctbs")
+region = Rect2(0, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pvpgg"]
+atlas = ExtResource("5_8qtr3")
+region = Rect2(0, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xjjmc"]
+atlas = ExtResource("6_xlo5e")
+region = Rect2(0, 0, 48, 48)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_cx806"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ioaxl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y1od1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u2ktd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pvpgg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xjjmc")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="Animation" id="Animation_0i1bc"]
+resource_name = "default"
+length = 0.5
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"default"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("PointLight2D:texture_scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, 4.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("PointLight2D:color")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0.262745, 0.580392, 0.690196, 1), Color(0.25098, 0.12549, 0.278431, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_2rrit"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"default"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("PointLight2D:texture_scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("PointLight2D:color")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.262745, 0.580392, 0.690196, 1)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("CanvasLayer/ColorRect:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("PointLight2D:energy")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+
+[sub_resource type="Animation" id="Animation_3jwuv"]
+resource_name = "fade_in"
+length = 1.5
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/ColorRect:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PointLight2D:color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.945098, 0.964706, 0.941176, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("PointLight2D:energy")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, 10.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("PointLight2D:texture_scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, 50.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_wnl8j"]
+_data = {
+&"RESET": SubResource("Animation_2rrit"),
+&"default": SubResource("Animation_0i1bc"),
+&"fade_in": SubResource("Animation_3jwuv")
+}
+
+[node name="FinalDoor" type="Area2D"]
+script = ExtResource("1_3jwuv")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_cg4ft")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+material = SubResource("ShaderMaterial_hp06c")
+sprite_frames = SubResource("SpriteFrames_cx806")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_wnl8j")
+}
+autoplay = "default"
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+color = Color(0.262745, 0.580392, 0.690196, 1)
+texture = ExtResource("7_tx8fg")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+modulate = Color(1, 1, 1, 0)
+offset_right = 320.0
+offset_bottom = 180.0
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

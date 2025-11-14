@@ -1,14 +1,15 @@
-[gd_scene load_steps=16 format=3 uid="uid://1piv26fr88nh"]
+[gd_scene load_steps=17 format=3 uid="uid://1piv26fr88nh"]
 
 [ext_resource type="PackedScene" uid="uid://b06uac3jqkxk5" path="res://SYSTEMS/HITBOX|HURTBOX/hitbox.tscn" id="1_itn6y"]
 [ext_resource type="Script" uid="uid://b6fyhnhvbxs0j" path="res://ENEMIES/bullet.gd" id="1_sfq7l"]
 [ext_resource type="Shader" uid="uid://coyyspyiw13hi" path="res://SYSTEMS/pixel.gdshader" id="2_1cnyl"]
 [ext_resource type="Texture2D" uid="uid://cl66sbae8btri" path="res://ENEMIES/ENEMY_SPRITES/STARS1-sheet.png" id="3_36qqo"]
+[ext_resource type="Texture2D" uid="uid://bot6jf8hwbh45" path="res://ASSETS/WORLD_ASSETS/LIGHT.png" id="5_36qqo"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_3cuie"]
 shader = ExtResource("2_1cnyl")
 shader_parameter/outline_color = Color(0.945098, 0.964706, 0.941176, 1)
-shader_parameter/corner_pixel = true
+shader_parameter/corner_pixel = false
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_tyq07"]
 atlas = ExtResource("3_36qqo")
@@ -98,10 +99,45 @@ tracks/3/keys = {
 "update": 0,
 "values": [Vector2(0.5, 0.5)]
 }
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("PointLight2D:energy")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.5]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("AnimatedSprite2D:modulate")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("PointLight2D:texture_scale")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [2.19]
+}
 
 [sub_resource type="Animation" id="Animation_5t4sw"]
 resource_name = "default"
-length = 0.4
 loop_mode = 1
 step = 0.1
 tracks/0/type = "value"
@@ -128,10 +164,72 @@ tracks/1/keys = {
 "update": 1,
 "values": [0, 1, 2, 3]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("PointLight2D:energy")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.4, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.5, 2.0, 16.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.6, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(0.113725, 0.109804, 0.227451, 1), Color(0.113725, 0.109804, 0.227451, 1), Color(0.113725, 0.109804, 0.227451, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("AnimatedSprite2D:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.6, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/5/type = "method"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath(".")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("PointLight2D:texture_scale")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 0.6, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [2.19, 3.0, 0.1]
+}
 
 [sub_resource type="Animation" id="Animation_1cnyl"]
 resource_name = "fade_out"
-step = 0.1
+step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -139,7 +237,7 @@ tracks/0/path = NodePath(".:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1),
+"times": PackedFloat32Array(0, 0.2),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Color(0.113725, 0.109804, 0.227451, 1), Color(0.454902, 0.180392, 0.564706, 0)]
@@ -151,7 +249,7 @@ tracks/1/path = NodePath(".")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0.1),
+"times": PackedFloat32Array(0.2),
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [],
@@ -165,10 +263,10 @@ tracks/2/path = NodePath(".:scale")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.1),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(0.5, 0.5), Vector2(1, 1)]
+"values": [Vector2(0.5, 0.5)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ss5ye"]
@@ -196,5 +294,10 @@ libraries = {
 &"": SubResource("AnimationLibrary_ss5ye")
 }
 autoplay = "default"
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+energy = 0.5
+texture = ExtResource("5_36qqo")
+texture_scale = 2.19
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

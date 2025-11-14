@@ -1,13 +1,76 @@
-[gd_scene load_steps=3 format=3 uid="uid://b8h7dyh1ah227"]
+[gd_scene load_steps=10 format=3 uid="uid://b8h7dyh1ah227"]
 
 [ext_resource type="Script" uid="uid://b4riyd868jl41" path="res://COLLECTABLES/artifact.gd" id="1_srgl1"]
+[ext_resource type="Shader" uid="uid://coyyspyiw13hi" path="res://SYSTEMS/pixel.gdshader" id="2_mt1wt"]
+[ext_resource type="Texture2D" uid="uid://dwmvkith5vsqo" path="res://ASSETS/WORLD_ASSETS/FINAL_STARS1.png" id="2_tnuip"]
+[ext_resource type="Texture2D" uid="uid://bot6jf8hwbh45" path="res://ASSETS/WORLD_ASSETS/LIGHT.png" id="3_rfyb4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hcgvj"]
 
-[node name="Artifact" type="Area2D"]
+[sub_resource type="Animation" id="Animation_8n55u"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PointLight2D:energy")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.5]
+}
+
+[sub_resource type="Animation" id="Animation_mt1wt"]
+resource_name = "default"
+loop_mode = 2
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PointLight2D:energy")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.6, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [1.5, 1.0, 0.5, 1.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_j3hvh"]
+_data = {
+&"RESET": SubResource("Animation_8n55u"),
+&"default": SubResource("Animation_mt1wt")
+}
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8n55u"]
+shader = ExtResource("2_mt1wt")
+shader_parameter/outline_color = Color(0.945098, 0.964706, 0.941176, 1)
+shader_parameter/corner_pixel = true
+
+[node name="Artifact" type="Area2D" groups=["KEY"]]
 script = ExtResource("1_srgl1")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_hcgvj")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_j3hvh")
+}
+autoplay = "default"
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_8n55u")
+texture = ExtResource("2_tnuip")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(0, 4)
+color = Color(0.262745, 0.580392, 0.690196, 1)
+energy = 1.5
+texture = ExtResource("3_rfyb4")
+texture_scale = 20.0
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

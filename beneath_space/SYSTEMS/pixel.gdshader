@@ -6,7 +6,7 @@ uniform bool corner_pixel = false;
 void fragment() {
 	vec4 base = texture(TEXTURE, UV);
 	vec2 safe_uv = clamp(UV, vec2(0.0), vec2(1.0));
-	
+
 	if (base.a > 0.0) {
 		COLOR = base;
 	} else {
@@ -16,16 +16,16 @@ void fragment() {
 		texture(TEXTURE, safe_uv + vec2(image_pixel_size.x, 0)).a > 0.0 ||
 		texture(TEXTURE, safe_uv + vec2(0, -image_pixel_size.y)).a > 0.0 ||
 		texture(TEXTURE, safe_uv + vec2(0, image_pixel_size.y)).a > 0.0;
-		bool valid_corner = 
+		bool valid_corner =
 		texture(TEXTURE, safe_uv + vec2(-image_pixel_size.x, -image_pixel_size.y)).a > 0.0 ||
 		texture(TEXTURE, safe_uv + vec2(image_pixel_size.x, -image_pixel_size.y)).a > 0.0 ||
 		texture(TEXTURE, safe_uv + vec2(-image_pixel_size.x, image_pixel_size.y)).a > 0.0 ||
 		texture(TEXTURE, safe_uv + vec2(image_pixel_size.x, image_pixel_size.y)).a > 0.0;
-		
+
 		if (valid_side || corner_pixel && valid_corner){
 			COLOR = outline_color;
 		}
-		
+
 	}
 }
 

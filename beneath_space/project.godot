@@ -14,6 +14,10 @@ config/name="BENEATH_SPACE"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[autoload]
+
+Global="*res://WORLD/Global.gd"
+
 [display]
 
 window/size/viewport_width=320

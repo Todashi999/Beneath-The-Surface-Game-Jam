@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://b3aulopd4gf6w"]
+[gd_scene load_steps=35 format=3 uid="uid://b3aulopd4gf6w"]
 
 [ext_resource type="Texture2D" uid="uid://dhdhc42wmrb05" path="res://ASSETS/Deltarune Undertale Sprites7.png" id="1_ctqh8"]
 [ext_resource type="Script" uid="uid://dsymnb2wwnijf" path="res://ENEMIES/locked_axis_enemy.gd" id="1_oqln8"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://b06uac3jqkxk5" path="res://SYSTEMS/HITBOX|HURTBOX/hitbox.tscn" id="3_gd4tf"]
 [ext_resource type="Texture2D" uid="uid://yh07u7k4h6o3" path="res://ENEMIES/ENEMY_SPRITES/STAR_ENEMY1-sheet.png" id="5_jqbhp"]
 [ext_resource type="Shader" uid="uid://coyyspyiw13hi" path="res://SYSTEMS/pixel.gdshader" id="5_laocb"]
+[ext_resource type="Texture2D" uid="uid://bot6jf8hwbh45" path="res://ASSETS/WORLD_ASSETS/LIGHT.png" id="7_ocdrb"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_6hmhg"]
 radius = 4.0
@@ -166,6 +167,33 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="Animation" id="Animation_yjwou"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"default"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
 [sub_resource type="Animation" id="Animation_rduwd"]
 resource_name = "default"
 length = 2.0
@@ -196,33 +224,6 @@ tracks/1/keys = {
 "values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
 }
 
-[sub_resource type="Animation" id="Animation_yjwou"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("AnimatedSprite2D:animation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [&"default"]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("AnimatedSprite2D:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_eiw2i"]
 _data = {
 &"RESET": SubResource("Animation_yjwou"),
@@ -244,18 +245,19 @@ visible = false
 texture = ExtResource("1_ctqh8")
 
 [node name="FloorDetection" type="RayCast2D" parent="."]
-target_position = Vector2(0, 16)
+target_position = Vector2(0, 12)
 
 [node name="CeilingDetection" type="RayCast2D" parent="."]
-target_position = Vector2(0, -16)
+target_position = Vector2(0, -12)
 
 [node name="WallDetection" type="RayCast2D" parent="."]
-target_position = Vector2(-16, 0)
+target_position = Vector2(-12, 0)
 
 [node name="WallDetection2" type="RayCast2D" parent="."]
-target_position = Vector2(16, 0)
+target_position = Vector2(12, 0)
 
 [node name="Hitbox" parent="." instance=ExtResource("3_gd4tf")]
+damage = 4
 
 [node name="CollisionShape2D" parent="Hitbox" index="0"]
 shape = SubResource("CircleShape2D_7kfa1")
@@ -273,6 +275,13 @@ libraries = {
 &"": SubResource("AnimationLibrary_eiw2i")
 }
 autoplay = "default"
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+color = Color(0.113725, 0.109804, 0.227451, 1)
+energy = 0.5
+shadow_enabled = true
+texture = ExtResource("7_ocdrb")
+texture_scale = 3.86
 
 [connection signal="timeout" from="Speed" to="." method="_on_speed_timeout"]
 

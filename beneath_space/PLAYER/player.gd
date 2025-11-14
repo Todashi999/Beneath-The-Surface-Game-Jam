@@ -11,6 +11,9 @@ extends CharacterBody2D
 @onready var health: Health = $Health
 @onready var anim_player: AnimationPlayer = $AnimationPlayer
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
+@onready var custom_health_bar: TextureProgressBar = $CanvasLayer/CustomHealthBar
+
+
 
 #MOVEMENT VARIABLES
 var JUMP_VELOCITY = -300.0
@@ -46,6 +49,8 @@ var coyote_timer: float = 0
 #ENERGY/HEALTH
 @export var max_energy: float 
 @export var energy = 100
+@export var HealthBar: CustomHealthBar
+
 
 #STATES
 var current_state: int
@@ -70,13 +75,13 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 func _ready() -> void:
 	add_to_group("can_interact_with_water")
-	
+	#HealthBar._setup_health_bar(energy)
+	custom_health_bar.value = energy
 	health.health = energy
 	energy_label.text = str(energy)
 
 
 func _physics_process(delta: float) -> void:
-
 	if !is_on_floor():
 		if !water_movement:
 			velocity.y += gravity * delta
@@ -159,7 +164,14 @@ func update_anim():
 
 
 func change_energy(amount):
+	var change_value_tween
+	
 	energy -= amount
+	energy_label.text = str(energy)
+	if change_value_tween:
+		change_value_tween.kill()
+	change_value_tween = create_tween()
+	change_value_tween.tween_property(custom_health_bar, "value", energy, 0.35).set_trans(Tween.TRANS_SINE)
 	energy_label.text = str(energy)
 
 func update_state(delta, direction):
@@ -327,6 +339,7 @@ func _on_health_health_depleted() -> void:
 
 func _on_health_health_changed(diff: int) -> void:
 	energy += diff * 5
+	#custom_health_bar.value = energy
 	energy_label.text = str(energy)
 	stun()
 	#print(diff, ' ', energy)

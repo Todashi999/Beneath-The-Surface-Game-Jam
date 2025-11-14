@@ -1,0 +1,33 @@
+[gd_scene load_steps=4 format=3 uid="uid://c7b8lf7vvnukl"]
+
+[ext_resource type="Texture2D" uid="uid://cggcryvejtotn" path="res://GUI/HEALTH_BAR3.png" id="1_mbf3p"]
+[ext_resource type="Texture2D" uid="uid://dicb7hj1yruwy" path="res://GUI/HEALTH_BAR1.png" id="2_kg3kp"]
+[ext_resource type="Script" uid="uid://civvtcc6qjlhd" path="res://GUI/custom_health_bar.gd" id="3_kg3kp"]
+
+[node name="CustomHealthBar" type="TextureProgressBar"]
+anchors_preset = -1
+anchor_right = 0.08
+anchor_bottom = 0.056
+offset_right = 86.4
+offset_bottom = 21.92
+scale = Vector2(0.2, 0.2)
+step = 0.001
+texture_over = ExtResource("1_mbf3p")
+texture_progress = ExtResource("2_kg3kp")
+script = ExtResource("3_kg3kp")
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.016
+anchor_bottom = 1.042
+offset_right = -90.048
+offset_bottom = -10.016
+texture_over = ExtResource("2_kg3kp")
+texture_progress = ExtResource("2_kg3kp")
+
+[node name="ResetVisibility" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="ResetVisibility" to="." method="_on_reset_visibility_timeout"]

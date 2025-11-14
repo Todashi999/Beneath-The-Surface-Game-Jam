@@ -1,4 +1,4 @@
-[gd_scene load_steps=67 format=3 uid="uid://c1g1qt38utjwb"]
+[gd_scene load_steps=70 format=3 uid="uid://c1g1qt38utjwb"]
 
 [ext_resource type="Script" uid="uid://bxd7fhtk5cxt" path="res://PLAYER/player.gd" id="1_i10xq"]
 [ext_resource type="Texture2D" uid="uid://xy7ayl5wtlew" path="res://ASSETS/Deltarune Undertale Sprites1.png" id="2_xmmt6"]
@@ -6,6 +6,9 @@
 [ext_resource type="PackedScene" uid="uid://b2h1ca3cqqefc" path="res://SYSTEMS/HITBOX|HURTBOX/hurtbox.tscn" id="4_gvfuq"]
 [ext_resource type="Shader" uid="uid://coyyspyiw13hi" path="res://SYSTEMS/pixel.gdshader" id="5_d1135"]
 [ext_resource type="Texture2D" uid="uid://c7qr5y8gyry8x" path="res://PLAYER/PLAYER_SPRITESS/ZION_v10-sheet.png" id="5_gvfuq"]
+[ext_resource type="Texture2D" uid="uid://bot6jf8hwbh45" path="res://ASSETS/WORLD_ASSETS/LIGHT.png" id="7_yrfig"]
+[ext_resource type="PackedScene" uid="uid://c7b8lf7vvnukl" path="res://GUI/custom_health_bar.tscn" id="8_45mp0"]
+[ext_resource type="Texture2D" uid="uid://cggcryvejtotn" path="res://GUI/HEALTH_BAR3.png" id="9_3bb6o"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_x3syo"]
 radius = 8.0
@@ -657,8 +660,9 @@ _data = {
 &"wall_jump": SubResource("Animation_6hrs2")
 }
 
-[node name="PLAYER" type="CharacterBody2D" groups=["PLAYER", "can_interact_with_water"]]
+[node name="PLAYER" type="CharacterBody2D" node_paths=PackedStringArray("HealthBar") groups=["PLAYER", "can_interact_with_water"]]
 script = ExtResource("1_i10xq")
+HealthBar = NodePath("CanvasLayer/CustomHealthBar")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 2)
@@ -712,6 +716,22 @@ one_shot = true
 one_shot = true
 
 [node name="EnergyTimer" type="Timer" parent="Timers"]
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+energy = 0.3
+texture = ExtResource("7_yrfig")
+texture_scale = 6.95
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="CustomHealthBar" parent="CanvasLayer" instance=ExtResource("8_45mp0")]
+offset_right = 102.4
+offset_bottom = 37.92
+scale = Vector2(1, 1)
+max_value = 300.0
+texture_under = ExtResource("9_3bb6o")
+texture_over = null
+script = null
 
 [connection signal="health_changed" from="Health" to="." method="_on_health_health_changed"]
 [connection signal="health_depleted" from="Health" to="." method="_on_health_health_depleted"]

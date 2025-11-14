@@ -1,8 +1,9 @@
-[gd_scene load_steps=17 format=3 uid="uid://dqxwj3byvpvwh"]
+[gd_scene load_steps=18 format=3 uid="uid://dqxwj3byvpvwh"]
 
 [ext_resource type="Script" uid="uid://dyc5oiwsvpeea" path="res://COLLECTABLES/key.gd" id="1_ljeny"]
 [ext_resource type="Shader" uid="uid://coyyspyiw13hi" path="res://SYSTEMS/pixel.gdshader" id="2_eound"]
 [ext_resource type="Texture2D" uid="uid://dwl7priyxy3ul" path="res://COLLECTABLES/KEY1-sheet.png" id="2_wq2sx"]
+[ext_resource type="Texture2D" uid="uid://bot6jf8hwbh45" path="res://ASSETS/WORLD_ASSETS/LIGHT.png" id="4_sf7so"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uu8rs"]
 
@@ -135,6 +136,18 @@ tracks/5/keys = {
 "update": 0,
 "values": [Color(0.454902, 0.180392, 0.564706, 1)]
 }
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("../PointLight2D:color")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
 
 [sub_resource type="Animation" id="Animation_trmae"]
 resource_name = "default"
@@ -176,6 +189,18 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 0,
 "values": [Color(0.454902, 0.180392, 0.564706, 1), Color(0.113725, 0.109804, 0.227451, 1), Color(0.219608, 0.427451, 0.607843, 1), Color(0.141176, 0.419608, 0.419608, 1), Color(1, 0.831373, 0.364706, 1), Color(0.945098, 0.964706, 0.941176, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../PointLight2D:color")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(0.25098, 0.12549, 0.278431, 1), Color(0.113725, 0.109804, 0.227451, 1), Color(0.219608, 0.427451, 0.607843, 1), Color(0.141176, 0.419608, 0.419608, 1), Color(1, 0.831373, 0.364706, 1), Color(0.945098, 0.964706, 0.941176, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_tnuip"]
@@ -270,5 +295,10 @@ libraries = {
 &"": SubResource("AnimationLibrary_jcknt")
 }
 autoplay = "default"
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+energy = 2.56
+texture = ExtResource("4_sf7so")
+texture_scale = 1.97
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

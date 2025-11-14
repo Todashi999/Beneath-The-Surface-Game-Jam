@@ -1,8 +1,9 @@
-[gd_scene load_steps=16 format=3 uid="uid://8vctkqrwbqot"]
+[gd_scene load_steps=17 format=3 uid="uid://8vctkqrwbqot"]
 
 [ext_resource type="Script" uid="uid://cnwcrg1xmol8q" path="res://POWER UPS/energy_recharge.gd" id="1_lwdtq"]
 [ext_resource type="Texture2D" uid="uid://bk1pmh0k11iu1" path="res://COLLECTABLES/ENERGY_UP1-sheet.png" id="2_an7sy"]
 [ext_resource type="Shader" uid="uid://coyyspyiw13hi" path="res://SYSTEMS/pixel.gdshader" id="2_clruh"]
+[ext_resource type="Texture2D" uid="uid://bot6jf8hwbh45" path="res://ASSETS/WORLD_ASSETS/LIGHT.png" id="4_nv01q"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bsv5b"]
 
@@ -246,5 +247,11 @@ libraries = {
 &"": SubResource("AnimationLibrary_xxsx5")
 }
 autoplay = "default"
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+color = Color(0.262745, 0.580392, 0.690196, 1)
+energy = 0.7
+texture = ExtResource("4_nv01q")
+texture_scale = 2.67
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
