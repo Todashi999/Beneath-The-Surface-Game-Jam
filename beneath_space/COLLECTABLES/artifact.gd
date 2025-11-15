@@ -7,6 +7,9 @@ var collected := false
 
 signal key_collected(key_id)
 
+func _ready() -> void:
+	Global.collected_artifacts = 0
+
 
 func _on_body_entered(body: Node2D) -> void:
 	if is_instance_valid(player):
@@ -14,4 +17,7 @@ func _on_body_entered(body: Node2D) -> void:
 			collected = true
 			key_collected.emit(key_id)
 			Global.collected_artifacts += 1
+			player.change_energy(-70)
+			player.DASH_AMOUNT += 50
+			animation_player.play("fade_out")
 			print(Global.collected_artifacts)

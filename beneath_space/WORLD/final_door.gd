@@ -19,6 +19,6 @@ func _on_key_key_collected(collected_id: String) -> void:
 
 
 func _on_body_entered(body: Node2D) -> void:
-	if door_opened and Global.collected_artifacts == 2:
+	if door_opened and Global.collected_artifacts >= 2:
 		if body.name == "PLAYER":
 			animation_player.play("fade_in")

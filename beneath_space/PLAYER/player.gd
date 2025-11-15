@@ -6,12 +6,13 @@ extends CharacterBody2D
 
 @onready var stun_timer: Timer = $Timers/StunTimer
 @onready var dash_cooldown_timer: Timer = $Timers/DashCooldownTimer
-@onready var energy_label: Label = $"energy label"
+@onready var energy_label: Label = $"CanvasLayer/energy label"
 @onready var energy_timer: Timer = $Timers/EnergyTimer
 @onready var health: Health = $Health
 @onready var anim_player: AnimationPlayer = $AnimationPlayer
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var custom_health_bar: TextureProgressBar = $CanvasLayer/CustomHealthBar
+@onready var collected_stars_label: Label = $CanvasLayer/Collected_Stars/collected_stars_label
 
 
 
@@ -34,7 +35,7 @@ var knockback: Vector2 = Vector2.ZERO
 var knockback_timer: float = 0.0
 
 #DASH 
-const DASH_AMOUNT: float = 500.0
+var DASH_AMOUNT: float = 600.0
 const DASH_TIME : float = 0.4
 
 var can_dash: bool = true
@@ -75,10 +76,12 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 func _ready() -> void:
 	add_to_group("can_interact_with_water")
+	Global.collected_artifacts = 0
 	#HealthBar._setup_health_bar(energy)
 	custom_health_bar.value = energy
 	health.health = energy
 	energy_label.text = str(energy)
+	collected_stars_label.text = str(Global.collected_artifacts)
 
 
 func _physics_process(delta: float) -> void:
@@ -168,6 +171,8 @@ func change_energy(amount):
 	
 	energy -= amount
 	energy_label.text = str(energy)
+	collected_stars_label.text = str(Global.collected_artifacts)
+
 	if change_value_tween:
 		change_value_tween.kill()
 	change_value_tween = create_tween()
@@ -330,7 +335,9 @@ func _on_energy_timer_timeout() -> void:
 
 func death():
 	if energy <= 0:
-		queue_free()
+		stun()
+		target_anim = "death"
+		anim_hold_timer = 1
 
 
 func _on_health_health_depleted() -> void:
@@ -350,3 +357,8 @@ func stun():
 
 func _on_stun_timer_timeout() -> void:
 	can_move = true
+
+
+func _on_animation_player_animation_finished(anim_name: StringName) -> void:
+	if anim_name == "death":
+		get_tree().reload_current_scene()

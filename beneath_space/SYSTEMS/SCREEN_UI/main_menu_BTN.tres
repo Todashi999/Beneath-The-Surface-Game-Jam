@@ -1,0 +1,19 @@
+[gd_resource type="StyleBoxFlat" format=3 uid="uid://lamkyxml0ci8"]
+
+[resource]
+bg_color = Color(0.733333, 0.764706, 0.815686, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.945098, 0.964706, 0.941176, 1)
+border_blend = true
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+corner_detail = 1
+shadow_color = Color(0.25098, 0.321569, 0.45098, 1)
+shadow_size = 2
+shadow_offset = Vector2(0, 2)
+anti_aliasing_size = 0.01

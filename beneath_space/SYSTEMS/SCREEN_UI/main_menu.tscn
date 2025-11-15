@@ -1,20 +1,32 @@
-[gd_scene load_steps=7 format=3 uid="uid://cni0cb0dxsx4u"]
+[gd_scene load_steps=41 format=3 uid="uid://cni0cb0dxsx4u"]
 
 [ext_resource type="Script" uid="uid://dbulfllwxxqss" path="res://SYSTEMS/SCREEN_UI/main_menu.gd" id="1_2437b"]
 [ext_resource type="Script" uid="uid://dyk44w58nvndg" path="res://SYSTEMS/SCREEN_UI/menu_input_manager.gd" id="2_gsptq"]
 [ext_resource type="Script" uid="uid://x0wsli32p3mt" path="res://SYSTEMS/SCREEN_UI/menu_config.gd" id="3_f21en"]
+[ext_resource type="Texture2D" uid="uid://d7vtghbe5bwe" path="res://GUI/BUTTON_UI2.png" id="4_bnsbf"]
+[ext_resource type="Texture2D" uid="uid://cvot16v2sa5gh" path="res://GUI/BUTTON_UI3.png" id="4_gtc0s"]
+[ext_resource type="Shader" uid="uid://bn4c8atfkpw5y" path="res://SYSTEMS/SCREEN_UI/glitch_2.gdshader" id="4_j1g8d"]
+[ext_resource type="Shader" uid="uid://coyyspyiw13hi" path="res://SYSTEMS/pixel.gdshader" id="5_7b62v"]
+[ext_resource type="Texture2D" uid="uid://bpo5ma34vwb3v" path="res://GUI/BUTTON_UI1.png" id="5_bnsbf"]
+[ext_resource type="Texture2D" uid="uid://cr4vtyiwrqh7" path="res://ASSETS/WORLD_ASSETS/START_PARTICLE.png" id="11_f5wyx"]
+[ext_resource type="Shader" uid="uid://1p8l5gybpucw" path="res://WORLD/star.gdshader" id="11_k4j6f"]
+[ext_resource type="Shader" uid="uid://5joua5kx7r07" path="res://SYSTEMS/SCREEN_UI/glitch.gdshader" id="12_f5wyx"]
+[ext_resource type="Texture2D" uid="uid://b3ugsu7r6m3ww" path="res://ASSETS/MY_BACKGROUND/BACKGROUND_REDO4.png" id="12_k4j6f"]
+[ext_resource type="Script" uid="uid://hmap5y1fto0y" path="res://SYSTEMS/SCREEN_UI/parallax_2d.gd" id="12_rd0xh"]
+[ext_resource type="Texture2D" uid="uid://bx8ds2dsk1qku" path="res://ASSETS/MY_BACKGROUND/BACKGROUND_REDO3.png" id="13_k4j6f"]
+[ext_resource type="Texture2D" uid="uid://chitx0ul0xvfy" path="res://ASSETS/MY_BACKGROUND/BACKGROUND_REDO2.png" id="14_rd0xh"]
 
-[sub_resource type="Resource" id="Resource_2437b"]
+[sub_resource type="Resource" id="Resource_gsptq"]
 script = ExtResource("3_f21en")
 menu_parent = NodePath("../HBoxContainer")
 default_button = NodePath("../HBoxContainer/VBoxContainer/play")
-button_parents = Array[NodePath]([NodePath("../HBoxContainer/VBoxContainer")])
+button_parents = Array[NodePath]([NodePath("../HBoxContainer/VBoxContainer"), NodePath("../HBoxContainer")])
 anim_player = NodePath("")
 show_anim = ""
 hide_anim = ""
 metadata/_custom_type_script = "uid://x0wsli32p3mt"
 
-[sub_resource type="Resource" id="Resource_gsptq"]
+[sub_resource type="Resource" id="Resource_f21en"]
 script = ExtResource("3_f21en")
 menu_parent = NodePath("../Settings")
 default_button = NodePath("../Settings/VBoxContainer/back_to_menu")
@@ -24,7 +36,7 @@ show_anim = ""
 hide_anim = ""
 metadata/_custom_type_script = "uid://x0wsli32p3mt"
 
-[sub_resource type="Resource" id="Resource_f21en"]
+[sub_resource type="Resource" id="Resource_gtc0s"]
 script = ExtResource("3_f21en")
 menu_parent = NodePath("../options1")
 default_button = NodePath("../options1/exit")
@@ -34,42 +46,467 @@ show_anim = ""
 hide_anim = ""
 metadata/_custom_type_script = "uid://x0wsli32p3mt"
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_n4ls4"]
+shader = ExtResource("4_j1g8d")
+shader_parameter/red_displacement = -1.0
+shader_parameter/green_displacement = -1.0
+shader_parameter/blue_displacement = -1.0
+shader_parameter/ghost = 0.0
+shader_parameter/intensity = 0.0
+shader_parameter/scan_effect = 0.0
+shader_parameter/distortion_effect = 0.0
+shader_parameter/negative_effect = 0.0
+
+[sub_resource type="Animation" id="Animation_f5wyx"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material:shader_parameter/red_displacement")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-1.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:material:shader_parameter/green_displacement")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-1.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:material:shader_parameter/blue_displacement")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-1.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:material:shader_parameter/ghost")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath(".:material:shader_parameter/intensity")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath(".:material:shader_parameter/scan_effect")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath(".:material:shader_parameter/distortion_effect")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath(".:material:shader_parameter/negative_effect")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_6xgiy"]
+resource_name = "default"
+loop_mode = 2
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material:shader_parameter/red_displacement")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.6, 0.8, 0.9, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [-1.0, 0.0, 0.332, -0.751, 0.0, 0.332]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:material:shader_parameter/green_displacement")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.6, 0.8, 0.9, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [-1.0, -0.53, -0.818, 0.00900005, -0.53, -0.818]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:material:shader_parameter/blue_displacement")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.6, 0.8, 0.9, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [-1.0, 0.427, 0.417, -0.763, 0.427, 0.417]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:material:shader_parameter/ghost")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.6, 0.8, 0.9, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.67, 0.283, 1.0, 0.67, 0.283]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath(".:material:shader_parameter/intensity")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.6, 0.8, 0.9, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.395, 0.0, 0.358, 0.395, 0.0]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath(".:material:shader_parameter/scan_effect")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.6, 0.8, 0.9, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.42, 1.0, 1.0, 0.42, 1.0]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath(".:material:shader_parameter/distortion_effect")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.6, 0.8, 0.9, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.587, 0.222, 0.702, 0.587, 0.222]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath(".:material:shader_parameter/negative_effect")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.6, 0.8, 0.9, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.33, 0.873, 0.379, 0.33, 0.873]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_rd0xh"]
+_data = {
+&"RESET": SubResource("Animation_f5wyx"),
+&"default": SubResource("Animation_6xgiy")
+}
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_k4j6f"]
+shader = ExtResource("5_7b62v")
+shader_parameter/outline_color = Color(0, 0, 0, 1)
+shader_parameter/corner_pixel = false
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bnsbf"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6xgiy"]
+shader = ExtResource("5_7b62v")
+shader_parameter/outline_color = Color(0.733333, 0.764706, 0.815686, 1)
+shader_parameter/corner_pixel = true
+
+[sub_resource type="LabelSettings" id="LabelSettings_bnsbf"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_f5wyx"]
+shader = ExtResource("5_7b62v")
+shader_parameter/outline_color = Color(0.733333, 0.764706, 0.815686, 1)
+shader_parameter/corner_pixel = false
+
+[sub_resource type="Animation" id="Animation_f21en"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_gsptq"]
+resource_name = "fade"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_gtc0s"]
+_data = {
+&"RESET": SubResource("Animation_f21en"),
+&"fade": SubResource("Animation_gsptq")
+}
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1jy5g"]
+shader = ExtResource("11_k4j6f")
+shader_parameter/time_speed = 5.801
+shader_parameter/brightness = 1.745
+shader_parameter/tint_color = Color(0.25098, 0.321569, 0.45098, 1)
+shader_parameter/shadow_color = Color(0.588235, 0.662745, 0.756863, 1)
+
+[sub_resource type="Gradient" id="Gradient_j1rna"]
+offsets = PackedFloat32Array(0, 0.389344, 0.635246, 1)
+colors = PackedColorArray(0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_dq3re"]
+gradient = SubResource("Gradient_j1rna")
+
+[sub_resource type="Curve" id="Curve_3evf5"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.751825, 0.98374), 0.0, 0.0, 0, 0, Vector2(1, 0.5), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_vfncc"]
+curve = SubResource("Curve_3evf5")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_k28yx"]
+particle_flag_disable_z = true
+emission_shape_scale = Vector3(320, 1200, 1)
+emission_shape = 3
+emission_box_extents = Vector3(1, 1, 1)
+gravity = Vector3(0, 0, 0)
+scale_min = 0.1
+scale_curve = SubResource("CurveTexture_vfncc")
+color_ramp = SubResource("GradientTexture1D_dq3re")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rd0xh"]
+shader = ExtResource("12_f5wyx")
+shader_parameter/shake_power = 0.03
+shader_parameter/shake_rate = 0.093
+shader_parameter/shake_speed = 5.0
+shader_parameter/shake_block_size = 30.5
+shader_parameter/shake_color_rate = 0.01
+
+[sub_resource type="Animation" id="Animation_dq3re"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_rsq5h"]
+resource_name = "default"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.8),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("..")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.8),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_cyh37"]
+_data = {
+&"RESET": SubResource("Animation_dq3re"),
+&"default": SubResource("Animation_rsq5h")
+}
+
 [node name="Main_menu" type="Node2D"]
+process_mode = 3
 script = ExtResource("1_2437b")
 
 [node name="MenuInputManager" type="Node" parent="."]
 script = ExtResource("2_gsptq")
-base_menu = SubResource("Resource_2437b")
-popup_menus = Array[ExtResource("3_f21en")]([SubResource("Resource_gsptq"), SubResource("Resource_f21en")])
+base_menu = SubResource("Resource_gsptq")
+popup_menus = Array[ExtResource("3_f21en")]([SubResource("Resource_f21en"), SubResource("Resource_gtc0s")])
 metadata/_custom_type_script = "uid://dyk44w58nvndg"
+
+[node name="Title" type="Label" parent="."]
+material = SubResource("ShaderMaterial_n4ls4")
+offset_left = 36.0
+offset_top = 36.0
+offset_right = 133.0
+offset_bottom = 65.0
+theme_override_colors/font_color = Color(0.733333, 0.764706, 0.815686, 1)
+theme_override_colors/font_outline_color = Color(0.733333, 0.764706, 0.815686, 1)
+theme_override_font_sizes/font_size = 25
+text = "contingent"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Title"]
+libraries = {
+&"": SubResource("AnimationLibrary_rd0xh")
+}
+autoplay = "default"
+
+[node name="Label" type="Label" parent="Title"]
+material = SubResource("ShaderMaterial_k4j6f")
+use_parent_material = true
+layout_mode = 0
+offset_left = 12.0
+offset_top = 8.0
+offset_right = 73.0
+offset_bottom = 26.0
+text = "CONTIGENT"
 
 [node name="BG" type="TextureRect" parent="."]
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="Title" type="Label" parent="."]
-offset_right = 40.0
-offset_bottom = 23.0
-
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
-offset_top = 64.0
-offset_right = 79.0
-offset_bottom = 165.0
+offset_left = 32.0
+offset_top = 84.0
+offset_right = 111.0
+offset_bottom = 185.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
+material = SubResource("ShaderMaterial_bnsbf")
 layout_mode = 2
 
-[node name="play" type="Button" parent="HBoxContainer/VBoxContainer"]
+[node name="play" type="TextureButton" parent="HBoxContainer/VBoxContainer"]
 layout_mode = 2
+texture_normal = ExtResource("5_bnsbf")
+texture_pressed = ExtResource("4_gtc0s")
+texture_hover = ExtResource("4_bnsbf")
+texture_focused = ExtResource("4_bnsbf")
+
+[node name="Label" type="Label" parent="HBoxContainer/VBoxContainer/play"]
+material = SubResource("ShaderMaterial_6xgiy")
+layout_mode = 2
+offset_right = 64.0
+offset_bottom = 28.0
 text = "PLAY"
+label_settings = SubResource("LabelSettings_bnsbf")
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="options" type="Button" parent="HBoxContainer/VBoxContainer"]
+[node name="options" type="TextureButton" parent="HBoxContainer/VBoxContainer"]
+visible = false
 layout_mode = 2
-text = "OPTIONS"
+texture_normal = ExtResource("5_bnsbf")
+texture_pressed = ExtResource("4_gtc0s")
+texture_hover = ExtResource("4_bnsbf")
 
-[node name="exit_game" type="Button" parent="HBoxContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="HBoxContainer/VBoxContainer/options"]
+layout_mode = 0
+offset_right = 64.0
+offset_bottom = 32.0
+text = "OPT."
+label_settings = SubResource("LabelSettings_bnsbf")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="exit_game" type="TextureButton" parent="HBoxContainer/VBoxContainer"]
 layout_mode = 2
+texture_normal = ExtResource("5_bnsbf")
+texture_pressed = ExtResource("4_gtc0s")
+texture_hover = ExtResource("4_bnsbf")
+texture_focused = ExtResource("4_bnsbf")
+
+[node name="Label" type="Label" parent="HBoxContainer/VBoxContainer/exit_game"]
+material = SubResource("ShaderMaterial_f5wyx")
+layout_mode = 0
+offset_right = 64.0
+offset_bottom = 28.0
 text = "EXIT"
+label_settings = SubResource("LabelSettings_bnsbf")
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Settings" type="HBoxContainer" parent="."]
 visible = false
@@ -118,9 +555,83 @@ layout_mode = 0
 offset_right = 8.0
 offset_bottom = 16.0
 
+[node name="ColorRect" type="TextureRect" parent="."]
+z_index = -1
+offset_right = 320.0
+offset_bottom = 180.0
+texture = ExtResource("14_rd0xh")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+modulate = Color(1, 1, 1, 0)
+offset_right = 320.0
+offset_bottom = 180.0
+color = Color(0.0666667, 0.0823529, 0.133333, 1)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer"]
+libraries = {
+&"": SubResource("AnimationLibrary_gtc0s")
+}
+
+[node name="Parallax2D2" type="Parallax2D" parent="."]
+z_index = -1
+repeat_size = Vector2(180, 0)
+script = ExtResource("12_rd0xh")
+
+[node name="Sprite2D" type="Sprite2D" parent="Parallax2D2"]
+material = SubResource("ShaderMaterial_1jy5g")
+position = Vector2(160, 88)
+texture = ExtResource("12_k4j6f")
+
+[node name="Parallax2D3" type="Parallax2D" parent="."]
+z_index = -1
+script = ExtResource("12_rd0xh")
+speed = 0.0
+
+[node name="Sprite2D" type="Sprite2D" parent="Parallax2D3"]
+position = Vector2(160, 92)
+texture = ExtResource("13_k4j6f")
+
+[node name="Parallax2D" type="Parallax2D" parent="."]
+repeat_size = Vector2(180, 0)
+script = ExtResource("12_rd0xh")
+
+[node name="Stars" type="GPUParticles2D" parent="Parallax2D"]
+z_index = 2
+position = Vector2(-160, -92)
+scale = Vector2(3, 3)
+amount = 1000
+texture = ExtResource("11_f5wyx")
+lifetime = 5.0
+explosiveness = 0.35
+randomness = 0.3
+process_material = SubResource("ParticleProcessMaterial_k28yx")
+
+[node name="Sprite2D" type="Sprite2D" parent="Parallax2D"]
+material = SubResource("ShaderMaterial_rd0xh")
+position = Vector2(160, 88)
+texture = ExtResource("14_rd0xh")
+
+[node name="CanvasLayer2" type="CanvasLayer" parent="."]
+process_mode = 3
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer2"]
+z_index = 4
+offset_right = 320.0
+offset_bottom = 180.0
+color = Color(0.0666667, 0.0823529, 0.133333, 1)
+
+[node name="TransitionAnimationPlayer" type="AnimationPlayer" parent="CanvasLayer2/ColorRect"]
+libraries = {
+&"": SubResource("AnimationLibrary_cyh37")
+}
+autoplay = "default"
+
 [connection signal="pressed" from="HBoxContainer/VBoxContainer/play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="HBoxContainer/VBoxContainer/options" to="." method="_on_options_pressed"]
 [connection signal="pressed" from="HBoxContainer/VBoxContainer/exit_game" to="." method="_on_exit_game_pressed"]
 [connection signal="pressed" from="Settings/VBoxContainer/back_to_menu" to="." method="_on_back_to_menu_pressed"]
 [connection signal="pressed" from="Settings/VBoxContainer/SETTINGS_1" to="." method="_on_settings_1_pressed"]
 [connection signal="pressed" from="options1/exit" to="." method="_on_exit_pressed"]
+[connection signal="animation_finished" from="CanvasLayer/AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

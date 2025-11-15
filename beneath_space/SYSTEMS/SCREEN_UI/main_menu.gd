@@ -1,10 +1,12 @@
 extends Node2D
 
+@onready var test_level = preload("res://WORLD/test_world.tscn")
 
+@onready var animation_player: AnimationPlayer = $CanvasLayer/AnimationPlayer
 
 
 func _on_play_pressed() -> void:
-	get_tree().change_scene_to_file("res://WORLD/test_world.tscn")
+	animation_player.play("fade")
 
 
 func _on_options_pressed() -> void:
@@ -25,3 +27,7 @@ func _on_exit_pressed() -> void:
 
 func _on_exit_game_pressed() -> void:
 	get_tree().quit()
+
+
+func _on_animation_player_animation_finished(_anim_name: StringName) -> void:
+	get_tree().change_scene_to_packed(test_level)

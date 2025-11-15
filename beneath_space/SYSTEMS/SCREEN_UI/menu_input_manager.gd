@@ -21,13 +21,16 @@ func _ready() -> void:
 
 func _setup_nodes_and_buttons(node: Control, is_base_menu: bool) -> void:
 	if !_is_hover_focusable(node):
-		node.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		node.mouse_filter = Control.MOUSE_FILTER_PASS
 	else:
 		if not node.mouse_entered.is_connected(_on_menubutton_hovered):
-			node.connect("mouse_entered", _on_menubutton_hovered.bind(node))
+			node.connect("mouse_entered", Callable(self, "_on_menubutton_hovered").bind(node))
 		if !is_base_menu:
 			node.mouse_filter = Control.MOUSE_FILTER_IGNORE
 			node.focus_mode = Control.FOCUS_NONE
+		else:
+			node.mouse_filter = Control.MOUSE_FILTER_STOP
+			node.focus_mode = Control.FOCUS_ALL
 	
 	for child in node.get_children():
 		if child is Control:
@@ -44,8 +47,13 @@ func _enable_disable_menu(menu: Array[NodePath], enable: bool) -> void:
 	for path in menu:
 		for node in get_node(path).get_children():
 			if _is_hover_focusable(node):
-				node.focus_mode = Control.FOCUS_ALL if enable else Control.FOCUS_NONE
-				node.mouse_filter = Control.MOUSE_FILTER_STOP if enable else Control.MOUSE_FILTER_IGNORE
+				node.focus_mode = Control.FOCUS_ALL #if enable else Control.FOCUS_NONE
+				node.mouse_filter = Control.MOUSE_FILTER_STOP #if enable else Control.MOUSE_FILTER_IGNORE
+				
+				if enable:
+					if not node.mouse_entered.is_connected(_on_menubutton_hovered):
+						node.mouse_entered.connect(_on_menubutton_hovered.bind(node))
+				
 				if !enable:
 					node.release_focus()
 					if last_hovered_node == node:
@@ -121,18 +129,18 @@ func close_menu() -> void:
 func _input(event: InputEvent) -> void:
 	if event is InputEventKey or event is InputEventJoypadButton or event is InputEventJoypadMotion:
 		if last_control_type != ControlType.FocusInput:
-			Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
+			#Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
 			get_viewport().set_input_as_handled()
 			if last_hovered_node and is_instance_valid(last_hovered_node):
 				last_hovered_node.grab_focus()
-				last_hovered_node.mouse_filter = Control.MOUSE_FILTER_IGNORE
+				last_hovered_node.mouse_filter = Control.MOUSE_FILTER_STOP
 			elif cur_default_button:
 				get_node(cur_default_button).grab_focus()
 			last_control_type = ControlType.FocusInput
 		
 		if Input.is_action_just_pressed("ui_cancel") and popup_menu_stack.size() > 0:
 			close_menu()
-	elif event is InputEventMouseMotion or event is InputEventMouseButton:
+	elif event is InputEventMouse:
 		if last_control_type != ControlType.HoverInput:
 			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 			var focused = get_viewport().gui_get_focus_owner()

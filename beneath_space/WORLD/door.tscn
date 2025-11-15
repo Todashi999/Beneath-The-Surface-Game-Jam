@@ -1,14 +1,17 @@
-[gd_scene load_steps=19 format=3 uid="uid://blin2x7d4tsd3"]
+[gd_scene load_steps=23 format=3 uid="uid://blin2x7d4tsd3"]
 
 [ext_resource type="Script" uid="uid://d1biakoqrxtaa" path="res://WORLD/door.gd" id="1_u5240"]
+[ext_resource type="Shader" uid="uid://5joua5kx7r07" path="res://SYSTEMS/SCREEN_UI/glitch.gdshader" id="2_6xfuk"]
 [ext_resource type="Texture2D" uid="uid://j25wi3wcm1co" path="res://ASSETS/WORLD_ASSETS/DOOR1.png" id="2_s4530"]
 [ext_resource type="Texture2D" uid="uid://bqvna3s61y4td" path="res://ASSETS/WORLD_ASSETS/DOOR2.png" id="3_m3gus"]
 [ext_resource type="Texture2D" uid="uid://c7kwpqqljvf5f" path="res://ASSETS/WORLD_ASSETS/DOOR3.png" id="4_6xfuk"]
 [ext_resource type="Texture2D" uid="uid://cv0sikkyc3gfr" path="res://ASSETS/WORLD_ASSETS/DOOR4.png" id="5_omfpl"]
 [ext_resource type="Texture2D" uid="uid://dgtjip6kv3kay" path="res://ASSETS/WORLD_ASSETS/DOOR5.png" id="6_grpvp"]
+[ext_resource type="Texture2D" uid="uid://qbkvq31pxp8c" path="res://ASSETS/WORLD_ASSETS/FINAL_STARS2.png" id="8_6xfuk"]
+[ext_resource type="Texture2D" uid="uid://bot6jf8hwbh45" path="res://ASSETS/WORLD_ASSETS/LIGHT.png" id="9_omfpl"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3duja"]
-size = Vector2(20, 50)
+size = Vector2(14, 64)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_3duja"]
 radius = 45.607
@@ -186,6 +189,14 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_omfpl"]
+shader = ExtResource("2_6xfuk")
+shader_parameter/shake_power = 0.03
+shader_parameter/shake_rate = 0.2
+shader_parameter/shake_speed = 5.0
+shader_parameter/shake_block_size = 30.5
+shader_parameter/shake_color_rate = 0.01
+
 [node name="Door" type="AnimatableBody2D"]
 script = ExtResource("1_u5240")
 
@@ -207,5 +218,18 @@ autoplay = "default"
 position = Vector2(0, -8)
 sprite_frames = SubResource("SpriteFrames_g470b")
 autoplay = "default"
+
+[node name="ColorRect2" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_omfpl")
+position = Vector2(8.9407e-08, -8)
+scale = Vector2(0.4375, 1)
+texture = ExtResource("8_6xfuk")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(-0.120001, -10)
+scale = Vector2(0.993421, 1.04167)
+color = Color(0.113725, 0.109804, 0.227451, 1)
+texture = ExtResource("9_omfpl")
+texture_scale = 1.14
 
 [connection signal="body_entered" from="DoorDetection" to="." method="_on_door_detection_body_entered"]

@@ -1,6 +1,7 @@
 extends AnimatableBody2D
 
 @export var door_id: String = "A" 
+@export var trap_door: bool = false
 
 var door_opened: bool = false
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
@@ -21,4 +22,6 @@ func _on_key_key_collected(collected_id: String) -> void:
 
 func _on_door_detection_body_entered(body: Node2D) -> void:
 	if door_opened and body.name == "PLAYER":
+		if trap_door:
+			player.stun()
 		animation_player.play("fade_out")

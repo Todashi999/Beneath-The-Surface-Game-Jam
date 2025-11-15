@@ -1,0 +1,169 @@
+[gd_scene load_steps=16 format=3 uid="uid://bfk34o8nkmhdb"]
+
+[ext_resource type="Texture2D" uid="uid://dg10ngu5l3p5x" path="res://WORLD/DIRECTIONS_ARROW1-sheet.png" id="1_1j7mg"]
+[ext_resource type="Shader" uid="uid://coyyspyiw13hi" path="res://SYSTEMS/pixel.gdshader" id="1_apolm"]
+[ext_resource type="Texture2D" uid="uid://bot6jf8hwbh45" path="res://ASSETS/WORLD_ASSETS/LIGHT.png" id="3_tchhk"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tchhk"]
+shader = ExtResource("1_apolm")
+shader_parameter/outline_color = Color(0.733333, 0.764706, 0.815686, 1)
+shader_parameter/corner_pixel = true
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_apolm"]
+atlas = ExtResource("1_1j7mg")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tchhk"]
+atlas = ExtResource("1_1j7mg")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e42ml"]
+atlas = ExtResource("1_1j7mg")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4abdc"]
+atlas = ExtResource("1_1j7mg")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fyxd2"]
+atlas = ExtResource("1_1j7mg")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7q2iq"]
+atlas = ExtResource("1_1j7mg")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aj1yy"]
+atlas = ExtResource("1_1j7mg")
+region = Rect2(64, 32, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_brvvg"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_apolm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tchhk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e42ml")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4abdc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fyxd2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7q2iq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_aj1yy")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="Animation" id="Animation_dxcm0"]
+resource_name = "default"
+length = 0.75
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"default"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("PointLight2D:texture_scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [2.0, 1.5, 2.0, 2.5]
+}
+
+[sub_resource type="Animation" id="Animation_6h0wp"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"default"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("PointLight2D:texture_scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [2.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ydhjx"]
+_data = {
+&"RESET": SubResource("Animation_6h0wp"),
+&"default": SubResource("Animation_dxcm0")
+}
+
+[node name="directions" type="AnimatedSprite2D"]
+material = SubResource("ShaderMaterial_tchhk")
+sprite_frames = SubResource("SpriteFrames_brvvg")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_ydhjx")
+}
+autoplay = "default"
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+energy = 0.3
+texture = ExtResource("3_tchhk")
+texture_scale = 2.0

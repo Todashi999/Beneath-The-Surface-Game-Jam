@@ -1,34 +1,182 @@
-[gd_scene load_steps=2 format=3 uid="uid://cse2f5m3qcyek"]
+[gd_scene load_steps=14 format=3 uid="uid://cse2f5m3qcyek"]
 
 [ext_resource type="Script" uid="uid://duaumcin6wow5" path="res://SYSTEMS/SCREEN_UI/pause_menu.gd" id="1_3rrdd"]
+[ext_resource type="Shader" uid="uid://1p8l5gybpucw" path="res://WORLD/star.gdshader" id="2_g766t"]
+[ext_resource type="Texture2D" uid="uid://bpo5ma34vwb3v" path="res://GUI/BUTTON_UI1.png" id="2_p585m"]
+[ext_resource type="Shader" uid="uid://coyyspyiw13hi" path="res://SYSTEMS/pixel.gdshader" id="3_g766t"]
+[ext_resource type="Texture2D" uid="uid://cvot16v2sa5gh" path="res://GUI/BUTTON_UI3.png" id="4_ijk3r"]
+[ext_resource type="Texture2D" uid="uid://d7vtghbe5bwe" path="res://GUI/BUTTON_UI2.png" id="5_x1lb6"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_capv6"]
+shader = ExtResource("2_g766t")
+shader_parameter/time_speed = 1.214
+shader_parameter/brightness = 2.219
+shader_parameter/tint_color = Color(0.25098, 0.321569, 0.45098, 1)
+shader_parameter/shadow_color = Color(0.733333, 0.764706, 0.815686, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lxarn"]
+shader = ExtResource("3_g766t")
+shader_parameter/outline_color = Color(0.733333, 0.764706, 0.815686, 1)
+shader_parameter/corner_pixel = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ijk3r"]
+shader = ExtResource("3_g766t")
+shader_parameter/outline_color = Color(0.733333, 0.764706, 0.815686, 1)
+shader_parameter/corner_pixel = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_x1lb6"]
+shader = ExtResource("3_g766t")
+shader_parameter/outline_color = Color(0.733333, 0.764706, 0.815686, 1)
+shader_parameter/corner_pixel = true
+
+[sub_resource type="Animation" id="Animation_ijk3r"]
+resource_name = "default"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../VBoxContainer:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_x1lb6"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../VBoxContainer:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_capv6"]
+_data = {
+&"RESET": SubResource("Animation_x1lb6"),
+&"default": SubResource("Animation_ijk3r")
+}
 
 [node name="PauseMenu" type="CanvasLayer"]
 process_mode = 3
+layer = 5
 script = ExtResource("1_3rrdd")
 
 [node name="ColorRect" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_capv6")
 offset_right = 320.0
 offset_bottom = 180.0
-color = Color(0.0666667, 0.0823529, 0.133333, 0.431373)
+mouse_filter = 1
+color = Color(0.0666667, 0.0823529, 0.133333, 0.47451)
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
-offset_left = 108.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 128.0
 offset_top = 48.0
-offset_right = 212.0
-offset_bottom = 114.0
+offset_right = -76.0
+offset_bottom = -28.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
 
-[node name="Resume" type="Button" parent="VBoxContainer"]
+[node name="Resume" type="TextureButton" parent="VBoxContainer"]
 layout_mode = 2
+texture_normal = ExtResource("2_p585m")
+texture_pressed = ExtResource("4_ijk3r")
+texture_hover = ExtResource("5_x1lb6")
+texture_disabled = ExtResource("4_ijk3r")
+
+[node name="Label" type="Label" parent="VBoxContainer/Resume"]
+material = SubResource("ShaderMaterial_lxarn")
+layout_mode = 0
+offset_right = 64.0
+offset_bottom = 28.0
 text = "RESUME"
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="Main_menu" type="Button" parent="VBoxContainer"]
+[node name="Main_menu" type="TextureButton" parent="VBoxContainer"]
 layout_mode = 2
-text = "MAIN MENU"
+texture_normal = ExtResource("2_p585m")
+texture_pressed = ExtResource("4_ijk3r")
+texture_hover = ExtResource("5_x1lb6")
+texture_disabled = ExtResource("4_ijk3r")
 
-[node name="Restart" type="Button" parent="VBoxContainer"]
+[node name="Label" type="Label" parent="VBoxContainer/Main_menu"]
+material = SubResource("ShaderMaterial_ijk3r")
+layout_mode = 0
+offset_right = 64.0
+offset_bottom = 28.0
+text = "EXIT"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Restart" type="TextureButton" parent="VBoxContainer"]
 layout_mode = 2
+texture_normal = ExtResource("2_p585m")
+texture_pressed = ExtResource("4_ijk3r")
+texture_hover = ExtResource("5_x1lb6")
+texture_disabled = ExtResource("4_ijk3r")
+
+[node name="Label" type="Label" parent="VBoxContainer/Restart"]
+material = SubResource("ShaderMaterial_x1lb6")
+layout_mode = 0
+offset_right = 64.0
+offset_bottom = 28.0
 text = "RESTART"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 3
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+modulate = Color(1, 1, 1, 0)
+z_index = 2
+offset_right = 320.0
+offset_bottom = 180.0
+color = Color(0.0666667, 0.0823529, 0.133333, 1)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer"]
+libraries = {
+&"": SubResource("AnimationLibrary_capv6")
+}
 
 [connection signal="pressed" from="VBoxContainer/Resume" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/Main_menu" to="." method="_on_button_2_pressed"]
 [connection signal="pressed" from="VBoxContainer/Restart" to="." method="_on_restart_pressed"]
+[connection signal="animation_finished" from="CanvasLayer/AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

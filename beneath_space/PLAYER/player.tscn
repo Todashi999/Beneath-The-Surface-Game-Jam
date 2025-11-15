@@ -1,4 +1,4 @@
-[gd_scene load_steps=70 format=3 uid="uid://c1g1qt38utjwb"]
+[gd_scene load_steps=77 format=3 uid="uid://c1g1qt38utjwb"]
 
 [ext_resource type="Script" uid="uid://bxd7fhtk5cxt" path="res://PLAYER/player.gd" id="1_i10xq"]
 [ext_resource type="Texture2D" uid="uid://xy7ayl5wtlew" path="res://ASSETS/Deltarune Undertale Sprites1.png" id="2_xmmt6"]
@@ -8,7 +8,9 @@
 [ext_resource type="Texture2D" uid="uid://c7qr5y8gyry8x" path="res://PLAYER/PLAYER_SPRITESS/ZION_v10-sheet.png" id="5_gvfuq"]
 [ext_resource type="Texture2D" uid="uid://bot6jf8hwbh45" path="res://ASSETS/WORLD_ASSETS/LIGHT.png" id="7_yrfig"]
 [ext_resource type="PackedScene" uid="uid://c7b8lf7vvnukl" path="res://GUI/custom_health_bar.tscn" id="8_45mp0"]
-[ext_resource type="Texture2D" uid="uid://cggcryvejtotn" path="res://GUI/HEALTH_BAR3.png" id="9_3bb6o"]
+[ext_resource type="Texture2D" uid="uid://dunkcpgxhttq" path="res://GUI/HEALTH_BAR_REDO1.png" id="9_3bb6o"]
+[ext_resource type="Texture2D" uid="uid://66eapja0hrkb" path="res://GUI/HEALTH_BAR_REDO2.png" id="10_m2wjv"]
+[ext_resource type="Texture2D" uid="uid://cpyp74epeqo5k" path="res://GUI/COLLECTED_FINAL_STARS.png" id="11_5dkip"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_x3syo"]
 radius = 8.0
@@ -412,6 +414,106 @@ tracks/1/keys = {
 "update": 1,
 "values": [0]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("PointLight2D:texture_scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [6.95]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("PointLight2D:energy")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.3]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("CanvasLayer/ColorRect:modulate")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_wkdj7"]
+resource_name = "death"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.433333, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0.1, 0.1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PointLight2D:texture_scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.433333),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [6.95]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("PointLight2D:energy")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.433333, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.3, 7.69]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CanvasLayer/ColorRect:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 1, 2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
 
 [sub_resource type="Animation" id="Animation_7fthd"]
 resource_name = "fall"
@@ -650,6 +752,7 @@ tracks/1/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_yrfig"]
 _data = {
 &"RESET": SubResource("Animation_d1135"),
+&"death": SubResource("Animation_wkdj7"),
 &"fall": SubResource("Animation_7fthd"),
 &"idle": SubResource("Animation_gvfuq"),
 &"jump": SubResource("Animation_45mp0"),
@@ -659,6 +762,26 @@ _data = {
 &"swim_jump": SubResource("Animation_3bb6o"),
 &"wall_jump": SubResource("Animation_6hrs2")
 }
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3bb6o"]
+shader = ExtResource("5_d1135")
+shader_parameter/outline_color = Color(0.733333, 0.764706, 0.815686, 1)
+shader_parameter/corner_pixel = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_45mp0"]
+shader = ExtResource("5_d1135")
+shader_parameter/outline_color = Color(0.945098, 0.964706, 0.941176, 1)
+shader_parameter/corner_pixel = false
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6hrs2"]
+shader = ExtResource("5_d1135")
+shader_parameter/outline_color = Color(0.733333, 0.764706, 0.815686, 1)
+shader_parameter/corner_pixel = false
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7fthd"]
+shader = ExtResource("5_d1135")
+shader_parameter/outline_color = Color(0.733333, 0.764706, 0.815686, 1)
+shader_parameter/corner_pixel = true
 
 [node name="PLAYER" type="CharacterBody2D" node_paths=PackedStringArray("HealthBar") groups=["PLAYER", "can_interact_with_water"]]
 script = ExtResource("1_i10xq")
@@ -672,13 +795,6 @@ shape = SubResource("CapsuleShape2D_x3syo")
 visible = false
 position = Vector2(0, 4)
 texture = ExtResource("2_xmmt6")
-
-[node name="energy label" type="Label" parent="."]
-offset_left = -36.0
-offset_top = -32.0
-offset_right = 4.0
-offset_bottom = -9.0
-text = "100"
 
 [node name="Camera2D" type="Camera2D" parent="."]
 offset = Vector2(0, -16)
@@ -724,17 +840,58 @@ texture_scale = 6.95
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
+[node name="energy label" type="Label" parent="CanvasLayer"]
+material = SubResource("ShaderMaterial_3bb6o")
+offset_left = 6.0
+offset_top = 52.0
+offset_right = 46.0
+offset_bottom = 75.0
+text = "100"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="CustomHealthBar" parent="CanvasLayer" instance=ExtResource("8_45mp0")]
-offset_right = 102.4
-offset_bottom = 37.92
+material = SubResource("ShaderMaterial_45mp0")
+offset_left = 10.0
+offset_top = -2.0
+offset_right = 128.4
+offset_bottom = 51.92
 scale = Vector2(1, 1)
 max_value = 300.0
+value = 93.0
+fill_mode = 3
+radial_initial_angle = 180.0
 texture_under = ExtResource("9_3bb6o")
-texture_over = null
+texture_progress = ExtResource("10_m2wjv")
 script = null
+
+[node name="Collected_Stars" type="TextureRect" parent="CanvasLayer"]
+material = SubResource("ShaderMaterial_6hrs2")
+offset_left = 264.0
+offset_top = 18.0
+offset_right = 312.0
+offset_bottom = 66.0
+texture = ExtResource("11_5dkip")
+
+[node name="collected_stars_label" type="Label" parent="CanvasLayer/Collected_Stars"]
+material = SubResource("ShaderMaterial_7fthd")
+layout_mode = 0
+offset_left = 2.0
+offset_right = 38.0
+offset_bottom = 38.0
+text = "0"
+horizontal_alignment = 2
+vertical_alignment = 2
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+modulate = Color(1, 1, 1, 0)
+offset_right = 320.0
+offset_bottom = 180.0
+color = Color(0.0666667, 0.0823529, 0.133333, 1)
 
 [connection signal="health_changed" from="Health" to="." method="_on_health_health_changed"]
 [connection signal="health_depleted" from="Health" to="." method="_on_health_health_depleted"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
 [connection signal="timeout" from="Timers/DashCooldownTimer" to="." method="_on_dash_cooldown_timer_timeout"]
 [connection signal="timeout" from="Timers/StunTimer" to="." method="_on_stun_timer_timeout"]
 [connection signal="timeout" from="Timers/EnergyTimer" to="." method="_on_energy_timer_timeout"]

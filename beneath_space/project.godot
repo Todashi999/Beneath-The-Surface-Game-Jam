@@ -11,6 +11,7 @@ config_version=5
 [application]
 
 config/name="BENEATH_SPACE"
+run/main_scene="uid://cni0cb0dxsx4u"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="res://icon.svg"
 
@@ -32,6 +33,10 @@ PLAYER=""
 ENEMY=""
 can_interact_with_water=""
 KEY=""
+
+[gui]
+
+theme/custom_font="uid://mhqkmdxv46bi"
 
 [input]
 

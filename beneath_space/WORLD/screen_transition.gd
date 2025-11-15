@@ -1,6 +1,6 @@
 extends Area2D
 
-var underwater_level = preload("res://WORLD/test_underwater.tscn")
+@onready var underwater_level = preload("res://WORLD/test_underwater.tscn")
 
 @onready var player = get_tree().get_first_node_in_group("PLAYER")
 @onready var animation_player: AnimationPlayer = $AnimationPlayer

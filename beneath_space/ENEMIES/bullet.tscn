@@ -8,7 +8,7 @@
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_3cuie"]
 shader = ExtResource("2_1cnyl")
-shader_parameter/outline_color = Color(0.945098, 0.964706, 0.941176, 1)
+shader_parameter/outline_color = Color(0.733333, 0.764706, 0.815686, 1)
 shader_parameter/corner_pixel = false
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_tyq07"]
@@ -138,6 +138,7 @@ tracks/6/keys = {
 
 [sub_resource type="Animation" id="Animation_5t4sw"]
 resource_name = "default"
+length = 2.0
 loop_mode = 1
 step = 0.1
 tracks/0/type = "value"
@@ -159,10 +160,10 @@ tracks/1/path = NodePath("AnimatedSprite2D:frame")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.0999, 0.2, 0.3),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.0999, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 1.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [0, 1, 2, 3]
+"values": [0, 1, 2, 3, 0, 1, 2, 3, 0, 1, 3, 0, 1, 3, 0, 1, 2, 0, 1, 2]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -171,7 +172,7 @@ tracks/2/path = NodePath("PointLight2D:energy")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.4, 1),
+"times": PackedFloat32Array(0, 0.4, 2),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [0.5, 2.0, 16.0]
@@ -183,7 +184,7 @@ tracks/3/path = NodePath(".:modulate")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.6, 1),
+"times": PackedFloat32Array(0, 0.6, 2),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [Color(0.113725, 0.109804, 0.227451, 1), Color(0.113725, 0.109804, 0.227451, 1), Color(0.113725, 0.109804, 0.227451, 0)]
@@ -195,7 +196,7 @@ tracks/4/path = NodePath("AnimatedSprite2D:modulate")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
-"times": PackedFloat32Array(0, 0.6, 1),
+"times": PackedFloat32Array(0, 0.6, 2),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
@@ -207,7 +208,7 @@ tracks/5/path = NodePath(".")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
-"times": PackedFloat32Array(1),
+"times": PackedFloat32Array(2),
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [],
@@ -221,10 +222,10 @@ tracks/6/path = NodePath("PointLight2D:texture_scale")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
-"times": PackedFloat32Array(0, 0.6, 1),
+"times": PackedFloat32Array(0, 0.6, 2),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [2.19, 3.0, 0.1]
+"values": [2.19, 0.5, 0.1]
 }
 
 [sub_resource type="Animation" id="Animation_1cnyl"]
@@ -288,6 +289,7 @@ sprite_frames = SubResource("SpriteFrames_k4q7c")
 shape = SubResource("CircleShape2D_euq76")
 
 [node name="Hitbox" parent="." instance=ExtResource("1_itn6y")]
+damage = 2
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -296,6 +298,7 @@ libraries = {
 autoplay = "default"
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
+color = Color(0.733333, 0.764706, 0.815686, 1)
 energy = 0.5
 texture = ExtResource("5_36qqo")
 texture_scale = 2.19
