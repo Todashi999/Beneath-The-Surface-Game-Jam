@@ -4,8 +4,12 @@ extends Node2D
 
 @onready var animation_player: AnimationPlayer = $CanvasLayer/AnimationPlayer
 
+func _ready() -> void:
+	AudioManager.play_sound("main_song_1")
 
 func _on_play_pressed() -> void:
+	AudioManager.play_sound("select")
+	AudioManager.stop_sound("main_song_1")
 	animation_player.play("fade")
 
 
@@ -26,6 +30,8 @@ func _on_exit_pressed() -> void:
 
 
 func _on_exit_game_pressed() -> void:
+	AudioManager.play_sound("death")
+	await get_tree().create_timer(1.5).timeout
 	get_tree().quit()
 
 

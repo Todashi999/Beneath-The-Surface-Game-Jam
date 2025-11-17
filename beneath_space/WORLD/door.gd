@@ -22,6 +22,7 @@ func _on_key_key_collected(collected_id: String) -> void:
 
 func _on_door_detection_body_entered(body: Node2D) -> void:
 	if door_opened and body.name == "PLAYER":
+		AudioManager.play_sound("door_opened_2")
 		if trap_door:
 			player.stun()
 		animation_player.play("fade_out")

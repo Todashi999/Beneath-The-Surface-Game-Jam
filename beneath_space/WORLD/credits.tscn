@@ -1,0 +1,362 @@
+[gd_scene load_steps=35 format=3 uid="uid://bvon36sklkm41"]
+
+[ext_resource type="Script" uid="uid://cvpl0q62sqqph" path="res://WORLD/credits.gd" id="1_ai16d"]
+[ext_resource type="Shader" uid="uid://coyyspyiw13hi" path="res://SYSTEMS/pixel.gdshader" id="1_kuk0b"]
+[ext_resource type="Shader" uid="uid://m0x071mhug1q" path="res://SYSTEMS/SCREEN_UI/main_menu_logo.gdshader" id="2_ai16d"]
+[ext_resource type="Texture2D" uid="uid://cotxrmgvctlhy" path="res://PLAYER/PLAYER_SPRITESS/ZIONV10_LOGO.png" id="3_2v5y4"]
+[ext_resource type="Shader" uid="uid://bj3kofy2ce75e" path="res://SYSTEMS/SCREEN_UI/main_menu_logo_2.gdshader" id="4_lq0c6"]
+[ext_resource type="FontFile" uid="uid://dapys5gus6573" path="res://ASSETS/FONTS/color-basic/Color Basic.otf" id="5_x8odp"]
+[ext_resource type="Texture2D" uid="uid://chitx0ul0xvfy" path="res://ASSETS/MY_BACKGROUND/BACKGROUND_REDO2.png" id="6_i532s"]
+[ext_resource type="Script" uid="uid://hmap5y1fto0y" path="res://SYSTEMS/SCREEN_UI/parallax_2d.gd" id="7_p3o7u"]
+[ext_resource type="Shader" uid="uid://1p8l5gybpucw" path="res://WORLD/star.gdshader" id="8_2m8b3"]
+[ext_resource type="Texture2D" uid="uid://b3ugsu7r6m3ww" path="res://ASSETS/MY_BACKGROUND/BACKGROUND_REDO4.png" id="9_prgt2"]
+[ext_resource type="Texture2D" uid="uid://bx8ds2dsk1qku" path="res://ASSETS/MY_BACKGROUND/BACKGROUND_REDO3.png" id="10_76msj"]
+[ext_resource type="Texture2D" uid="uid://cr4vtyiwrqh7" path="res://ASSETS/WORLD_ASSETS/START_PARTICLE.png" id="11_ymnj0"]
+[ext_resource type="Shader" uid="uid://5joua5kx7r07" path="res://SYSTEMS/SCREEN_UI/glitch.gdshader" id="12_e3gte"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_okf82"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1nxgr"]
+shader = ExtResource("1_kuk0b")
+shader_parameter/outline_color = Color(0.733333, 0.764706, 0.815686, 1)
+shader_parameter/corner_pixel = false
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_osupl"]
+shader = ExtResource("2_ai16d")
+shader_parameter/wave_amplitude = 100.0
+shader_parameter/wave_frequency = 100.0
+shader_parameter/movement_speed = 1.0
+shader_parameter/movement_amplitude = 5.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2ksth"]
+shader = ExtResource("4_lq0c6")
+shader_parameter/text_color = Color(0.588235, 0.662745, 0.756863, 1)
+shader_parameter/warp_frequency = 10.0
+shader_parameter/warp_amplitude = 5.0
+shader_parameter/warp_speed = 2.0
+
+[sub_resource type="LabelSettings" id="LabelSettings_fka40"]
+line_spacing = 4.0
+font = ExtResource("5_x8odp")
+font_size = 20
+outline_size = 4
+outline_color = Color(0.733333, 0.764706, 0.815686, 1)
+shadow_size = 9
+shadow_color = Color(0.733333, 0.764706, 0.815686, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fawne"]
+shader = ExtResource("2_ai16d")
+shader_parameter/wave_amplitude = 30.0
+shader_parameter/wave_frequency = 100.0
+shader_parameter/movement_speed = 2.0
+shader_parameter/movement_amplitude = 6.0
+
+[sub_resource type="Animation" id="Animation_f21en"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_gsptq"]
+resource_name = "fade"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_gtc0s"]
+_data = {
+&"RESET": SubResource("Animation_f21en"),
+&"fade": SubResource("Animation_gsptq")
+}
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_klpgo"]
+shader = ExtResource("8_2m8b3")
+shader_parameter/time_speed = 5.801
+shader_parameter/brightness = 1.745
+shader_parameter/tint_color = Color(0.25098, 0.321569, 0.45098, 1)
+shader_parameter/shadow_color = Color(0.588235, 0.662745, 0.756863, 1)
+
+[sub_resource type="Gradient" id="Gradient_dmmrm"]
+offsets = PackedFloat32Array(0, 0.389344, 0.635246, 1)
+colors = PackedColorArray(0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_dq3re"]
+gradient = SubResource("Gradient_dmmrm")
+
+[sub_resource type="Curve" id="Curve_msgp2"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.751825, 0.98374), 0.0, 0.0, 0, 0, Vector2(1, 0.5), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_vfncc"]
+curve = SubResource("Curve_msgp2")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_f5jw6"]
+particle_flag_disable_z = true
+emission_shape_scale = Vector3(320, 1200, 1)
+emission_shape = 3
+emission_box_extents = Vector3(1, 1, 1)
+gravity = Vector3(0, 0, 0)
+scale_min = 0.1
+scale_curve = SubResource("CurveTexture_vfncc")
+color_ramp = SubResource("GradientTexture1D_dq3re")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fumhi"]
+shader = ExtResource("12_e3gte")
+shader_parameter/shake_power = 0.03
+shader_parameter/shake_rate = 0.093
+shader_parameter/shake_speed = 5.0
+shader_parameter/shake_block_size = 30.5
+shader_parameter/shake_color_rate = 0.01
+
+[sub_resource type="Animation" id="Animation_dq3re"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_rsq5h"]
+resource_name = "default"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.8),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("..")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.8),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_cyh37"]
+_data = {
+&"RESET": SubResource("Animation_dq3re"),
+&"default": SubResource("Animation_rsq5h")
+}
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_aae8o"]
+shader = ExtResource("2_ai16d")
+shader_parameter/wave_amplitude = -30.0
+shader_parameter/wave_frequency = 140.0
+shader_parameter/movement_speed = 3.0
+shader_parameter/movement_amplitude = 5.0
+
+[sub_resource type="LabelSettings" id="LabelSettings_gjrx7"]
+font_size = 10
+
+[node name="Credits" type="Node2D"]
+script = ExtResource("1_ai16d")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+material = SubResource("ShaderMaterial_okf82")
+offset_left = 34.0
+offset_top = 77.0
+offset_right = 141.0
+offset_bottom = 139.0
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+material = SubResource("ShaderMaterial_1nxgr")
+layout_mode = 2
+text = "✦ Prgrammar: Me"
+
+[node name="Label2" type="Label" parent="VBoxContainer"]
+material = SubResource("ShaderMaterial_1nxgr")
+layout_mode = 2
+text = "✦ Sound Design: Me"
+
+[node name="Label4" type="Label" parent="VBoxContainer"]
+material = SubResource("ShaderMaterial_1nxgr")
+layout_mode = 2
+text = "✦ Music: Me"
+
+[node name="Label3" type="Label" parent="VBoxContainer"]
+material = SubResource("ShaderMaterial_1nxgr")
+layout_mode = 2
+text = "✦ Art/Assets: Me"
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+color = Color(0.835294, 0.839216, 0.858824, 1)
+
+[node name="TextureRect" type="TextureRect" parent="."]
+visible = false
+material = SubResource("ShaderMaterial_osupl")
+offset_left = 44.0
+offset_top = 8.0
+offset_right = 364.0
+offset_bottom = 188.0
+texture = ExtResource("3_2v5y4")
+
+[node name="TitleTheme2" type="Label" parent="."]
+material = SubResource("ShaderMaterial_2ksth")
+offset_left = 32.0
+offset_top = 32.0
+offset_right = 124.0
+offset_bottom = 57.0
+text = "Credits"
+label_settings = SubResource("LabelSettings_fka40")
+
+[node name="TitleTheme" type="Label" parent="."]
+material = SubResource("ShaderMaterial_fawne")
+offset_left = 32.0
+offset_top = 36.0
+offset_right = 124.0
+offset_bottom = 61.0
+text = "credits"
+label_settings = SubResource("LabelSettings_fka40")
+
+[node name="options1" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="exit" type="Button" parent="options1"]
+layout_mode = 0
+offset_left = 224.0
+offset_top = 88.0
+offset_right = 265.0
+offset_bottom = 128.0
+text = "EXIT"
+
+[node name="HSlider" type="HSlider" parent="options1"]
+layout_mode = 0
+offset_left = 96.0
+offset_top = 48.0
+offset_right = 104.0
+offset_bottom = 64.0
+
+[node name="HSlider2" type="HSlider" parent="options1/HSlider"]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 16.0
+
+[node name="ColorRect" type="TextureRect" parent="."]
+z_index = -1
+offset_right = 320.0
+offset_bottom = 180.0
+mouse_filter = 2
+texture = ExtResource("6_i532s")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+modulate = Color(1, 1, 1, 0)
+offset_right = 320.0
+offset_bottom = 180.0
+mouse_filter = 2
+color = Color(0.0666667, 0.0823529, 0.133333, 1)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer"]
+libraries = {
+&"": SubResource("AnimationLibrary_gtc0s")
+}
+
+[node name="Parallax2D2" type="Parallax2D" parent="."]
+z_index = -1
+repeat_size = Vector2(180, 0)
+script = ExtResource("7_p3o7u")
+
+[node name="Sprite2D" type="Sprite2D" parent="Parallax2D2"]
+material = SubResource("ShaderMaterial_klpgo")
+position = Vector2(160, 88)
+texture = ExtResource("9_prgt2")
+
+[node name="Parallax2D3" type="Parallax2D" parent="."]
+z_index = -1
+script = ExtResource("7_p3o7u")
+speed = 0.0
+
+[node name="Sprite2D" type="Sprite2D" parent="Parallax2D3"]
+position = Vector2(160, 92)
+texture = ExtResource("10_76msj")
+
+[node name="Parallax2D" type="Parallax2D" parent="."]
+repeat_size = Vector2(180, 0)
+script = ExtResource("7_p3o7u")
+
+[node name="Stars" type="GPUParticles2D" parent="Parallax2D"]
+z_index = 2
+position = Vector2(-160, -92)
+scale = Vector2(3, 3)
+amount = 1000
+texture = ExtResource("11_ymnj0")
+lifetime = 5.0
+explosiveness = 0.35
+randomness = 0.3
+process_material = SubResource("ParticleProcessMaterial_f5jw6")
+
+[node name="Sprite2D" type="Sprite2D" parent="Parallax2D"]
+material = SubResource("ShaderMaterial_fumhi")
+position = Vector2(160, 88)
+texture = ExtResource("6_i532s")
+
+[node name="CanvasLayer2" type="CanvasLayer" parent="."]
+process_mode = 3
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer2"]
+z_index = 4
+offset_right = 320.0
+offset_bottom = 180.0
+mouse_filter = 2
+color = Color(0.945098, 0.964706, 0.941176, 1)
+
+[node name="TransitionAnimationPlayer" type="AnimationPlayer" parent="CanvasLayer2/ColorRect"]
+libraries = {
+&"": SubResource("AnimationLibrary_cyh37")
+}
+autoplay = "default"
+
+[node name="Label" type="Label" parent="."]
+material = SubResource("ShaderMaterial_aae8o")
+offset_left = 226.0
+offset_top = 124.0
+offset_right = 323.0
+offset_bottom = 163.0
+text = "Thanks for 
+playing my demo!"
+label_settings = SubResource("LabelSettings_gjrx7")
+horizontal_alignment = 1

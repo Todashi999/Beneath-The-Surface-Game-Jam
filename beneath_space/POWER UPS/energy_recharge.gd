@@ -9,7 +9,7 @@ func _on_body_entered(body: Node2D) -> void:
 		if body.name == "PLAYER":
 			player.change_energy(-50)
 			animation_player.play("collected")
-			#PLAY ANIMATION TO QUEUE FREE
+			AudioManager.play_sound("blackhole")
 
 			animation_player.queue("default")
 

@@ -7,11 +7,15 @@ var collected := false
 
 signal key_collected(key_id)
 
+
+
 func _ready() -> void:
 	Global.collected_artifacts = 0
 
 
 func _on_body_entered(body: Node2D) -> void:
+	var _chance = randi() % 1
+
 	if is_instance_valid(player):
 		if body.name == "PLAYER":
 			collected = true
@@ -20,4 +24,4 @@ func _on_body_entered(body: Node2D) -> void:
 			player.change_energy(-70)
 			player.DASH_AMOUNT += 50
 			animation_player.play("fade_out")
-			print(Global.collected_artifacts)
+			AudioManager.play_sound("star_pickup")

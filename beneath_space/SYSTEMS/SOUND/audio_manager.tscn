@@ -1,0 +1,91 @@
+[gd_scene load_steps=23 format=3 uid="uid://o1e44rv62od0"]
+
+[ext_resource type="Script" uid="uid://tlwjuvn3bxwn" path="res://SYSTEMS/SOUND/audio_manager.gd" id="1_ia65i"]
+[ext_resource type="AudioStream" uid="uid://xst6lmog302e" path="res://SOUNDS/blackhole.wav" id="2_w5af8"]
+[ext_resource type="AudioStream" uid="uid://bepk7huw4a3vj" path="res://SOUNDS/dash.wav" id="3_55ecf"]
+[ext_resource type="AudioStream" uid="uid://dhdny0qd3nnu8" path="res://SOUNDS/death.wav" id="4_gjgch"]
+[ext_resource type="AudioStream" uid="uid://lsva0a5oykd7" path="res://SOUNDS/door_opened.wav" id="5_xj4r4"]
+[ext_resource type="AudioStream" uid="uid://qqh3cws6r7k8" path="res://SOUNDS/door_open_2.wav" id="6_d04xe"]
+[ext_resource type="AudioStream" uid="uid://b0h325bkfg3ba" path="res://SOUNDS/end_sound.wav" id="7_xnsg3"]
+[ext_resource type="AudioStream" uid="uid://cemig22iq8kp1" path="res://SOUNDS/hitHurt.wav" id="8_4e5wd"]
+[ext_resource type="AudioStream" uid="uid://cuwxu2x7ufcds" path="res://SOUNDS/idk.wav" id="9_r67jr"]
+[ext_resource type="AudioStream" uid="uid://domfiitwiqyet" path="res://SOUNDS/jump.wav" id="10_nen7f"]
+[ext_resource type="AudioStream" uid="uid://ck7sbe8mh0x5q" path="res://SOUNDS/select.wav" id="11_1uv3t"]
+[ext_resource type="AudioStream" uid="uid://bwd5vixmgtssd" path="res://SOUNDS/star_pickup.wav" id="12_vjmln"]
+[ext_resource type="AudioStream" uid="uid://b8y0b4p862f3x" path="res://SOUNDS/star_sound_default.wav" id="13_hbooo"]
+[ext_resource type="AudioStream" uid="uid://bocyudxqyj6h1" path="res://SOUNDS/swim_jump.wav" id="14_abcv7"]
+[ext_resource type="AudioStream" uid="uid://11hwnu2ujc0j" path="res://SOUNDS/ASTRAL_PARADOX.wav" id="15_w5af8"]
+[ext_resource type="AudioStream" uid="uid://b12j67ucgiukf" path="res://SOUNDS/water.wav" id="16_55ecf"]
+[ext_resource type="AudioStream" uid="uid://doy6fpw2r8jcw" path="res://SOUNDS/exit_water.wav" id="17_gjgch"]
+[ext_resource type="AudioStream" uid="uid://bo2u7ti2h8iqf" path="res://SOUNDS/Reach for the stars.wav" id="18_xj4r4"]
+[ext_resource type="AudioStream" uid="uid://besag0sdv0ex5" path="res://SOUNDS/walljump.wav" id="19_d04xe"]
+[ext_resource type="AudioStream" uid="uid://dc1u12myxlfkd" path="res://SOUNDS/walljump_2.wav" id="20_xnsg3"]
+[ext_resource type="AudioStream" uid="uid://dem7e0h1lplka" path="res://SOUNDS/CosmicHeavean.wav" id="21_4e5wd"]
+[ext_resource type="AudioStream" uid="uid://drimgfr53j3ol" path="res://SOUNDS/AstralDoor.wav" id="22_r67jr"]
+
+[node name="AudioManager" type="Node2D"]
+script = ExtResource("1_ia65i")
+
+[node name="Blackhole" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_w5af8")
+
+[node name="Dash" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_55ecf")
+
+[node name="Death" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_gjgch")
+
+[node name="DoorOpened" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_xj4r4")
+
+[node name="DoorOpen2" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_d04xe")
+
+[node name="EndSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_xnsg3")
+
+[node name="HitHurt" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_4e5wd")
+
+[node name="Idk" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("9_r67jr")
+
+[node name="Jump" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("10_nen7f")
+
+[node name="Select" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("11_1uv3t")
+volume_db = -20.0
+
+[node name="StarPickup" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("12_vjmln")
+
+[node name="StarSoundDefault" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("13_hbooo")
+
+[node name="SwimJump" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("14_abcv7")
+
+[node name="MainSong1" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("15_w5af8")
+
+[node name="Water" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("16_55ecf")
+
+[node name="ExitWater" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("17_gjgch")
+
+[node name="MainSong2" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("18_xj4r4")
+
+[node name="SwimJump2" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("19_d04xe")
+
+[node name="WallJump2" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("20_xnsg3")
+
+[node name="MainSong3" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("21_4e5wd")
+
+[node name="CreditsSong" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("22_r67jr")

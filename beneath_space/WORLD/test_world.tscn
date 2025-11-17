@@ -1,5 +1,6 @@
-[gd_scene load_steps=41 format=4 uid="uid://bidqytvj5i0q3"]
+[gd_scene load_steps=51 format=4 uid="uid://bidqytvj5i0q3"]
 
+[ext_resource type="Script" uid="uid://cqjxhau84selj" path="res://WORLD/test_world.gd" id="1_af6a4"]
 [ext_resource type="PackedScene" uid="uid://cse2f5m3qcyek" path="res://SYSTEMS/SCREEN_UI/pause_menu.tscn" id="1_evtvj"]
 [ext_resource type="Texture2D" uid="uid://bd5sdy55druwe" path="res://ASSETS/WORLD_ASSETS/TILESET_ABOVEWATER.png" id="1_qnemp"]
 [ext_resource type="PackedScene" uid="uid://c1g1qt38utjwb" path="res://PLAYER/player.tscn" id="2_5mnk0"]
@@ -79,6 +80,50 @@ scale_min = 0.1
 scale_curve = SubResource("CurveTexture_wnvji")
 color_ramp = SubResource("GradientTexture1D_q0xl0")
 
+[sub_resource type="Gradient" id="Gradient_af6a4"]
+offsets = PackedFloat32Array(0.00330033, 0.4967, 1)
+colors = PackedColorArray(0.945098, 0.964706, 0.941176, 0, 0.984327, 0.989924, 0.983207, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_hdbd8"]
+gradient = SubResource("Gradient_af6a4")
+width = 1
+height = 32
+fill_to = Vector2(0, 1)
+
+[sub_resource type="Gradient" id="Gradient_fa35o"]
+colors = PackedColorArray(0, 0, 0, 0, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_swspk"]
+gradient = SubResource("Gradient_fa35o")
+
+[sub_resource type="Gradient" id="Gradient_1nrjt"]
+offsets = PackedFloat32Array(0, 0.467181, 1)
+colors = PackedColorArray(0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_lxbwj"]
+gradient = SubResource("Gradient_1nrjt")
+
+[sub_resource type="Curve" id="Curve_2vljm"]
+_limits = [-200.0, 200.0, 0.0, 1.0]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.0979021, 43.4012), 0.0, 0.0, 0, 0, Vector2(0.225524, 5.01918), 0.0, 0.0, 0, 0, Vector2(0.351399, 44.1689), 0.0, 0.0, 0, 0, Vector2(0.424825, 1.94861), 0.0, 0.0, 0, 0, Vector2(0.508741, 49.5424), 0.0, 0.0, 0, 0, Vector2(0.582168, -1.88959), 0.0, 0.0, 0, 0, Vector2(0.72028, 36.4925), 0.0, 0.0, 0, 0, Vector2(0.774476, -4.96016), 0.0, 0.0, 0, 0, Vector2(0.891608, 39.563), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 11
+
+[sub_resource type="CurveTexture" id="CurveTexture_q8hdh"]
+curve = SubResource("Curve_2vljm")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_af6a4"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(320, 180, 1)
+gravity = Vector3(100, 20, 0)
+tangential_accel_min = -2.23517e-06
+tangential_accel_max = 6.0
+tangential_accel_curve = SubResource("CurveTexture_q8hdh")
+damping_max = 100.0
+scale_max = 1.8
+color_ramp = SubResource("GradientTexture1D_lxbwj")
+color_initial_ramp = SubResource("GradientTexture1D_swspk")
+
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_cg5nq"]
 
 [sub_resource type="Curve2D" id="Curve2D_lxvbh"]
@@ -154,6 +199,7 @@ _data = {
 }
 
 [node name="Test_World" type="Node2D"]
+script = ExtResource("1_af6a4")
 
 [node name="TileMapLayer3" type="TileMapLayer" parent="."]
 z_index = -1
@@ -190,7 +236,7 @@ movement_speed = 200
 position = Vector2(60, 136)
 energy = 300
 
-[node name="Camera2D" parent="PLAYER" index="2"]
+[node name="Camera2D" parent="PLAYER" index="3"]
 limit_left = 0
 position_smoothing_speed = 5.0
 
@@ -224,6 +270,9 @@ door_id = "R"
 
 [node name="CollisionShape2D" parent="Door" index="0"]
 position = Vector2(-0.5, -15)
+
+[node name="ColorRect2" parent="Door" index="4"]
+visible = false
 
 [node name="Door3" parent="." instance=ExtResource("8_evtvj")]
 z_index = -1
@@ -300,6 +349,17 @@ texture = ExtResource("12_cg5nq")
 [node name="Parallax2D4" type="Parallax2D" parent="Parallax"]
 scroll_scale = Vector2(0.7, 0.7)
 repeat_size = Vector2(320, 0)
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="Parallax/Parallax2D4"]
+position = Vector2(-160, -92)
+amount = 25
+texture = SubResource("GradientTexture2D_hdbd8")
+lifetime = 5.0
+preprocess = 2.0
+randomness = 1.0
+trail_enabled = true
+trail_lifetime = 0.6
+process_material = SubResource("ParticleProcessMaterial_af6a4")
 
 [node name="Sprite2D" type="Sprite2D" parent="Parallax/Parallax2D4"]
 texture = ExtResource("13_lxvbh")
@@ -392,10 +452,15 @@ position = Vector2(1580, 1140)
 [node name="CollisionShape2D" parent="ScreenTransition" index="0"]
 position = Vector2(37, -22)
 
+[node name="ColorRect" parent="ScreenTransition/CanvasLayer" index="0"]
+offset_top = 182.0
+offset_bottom = 362.0
+
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 color = Color(0.423529, 0.505882, 0.631373, 1)
 
 [node name="DIRECTIONS" type="Node2D" parent="."]
+z_index = -1
 
 [node name="directions" parent="DIRECTIONS" instance=ExtResource("23_adwc8")]
 position = Vector2(572, 124)

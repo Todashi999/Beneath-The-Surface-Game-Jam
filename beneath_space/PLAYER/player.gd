@@ -13,6 +13,9 @@ extends CharacterBody2D
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var custom_health_bar: TextureProgressBar = $CanvasLayer/CustomHealthBar
 @onready var collected_stars_label: Label = $CanvasLayer/Collected_Stars/collected_stars_label
+@onready var hit_anim_player: AnimationPlayer = $HitAnimPlayer
+@onready var dash_anim_player: AnimationPlayer = $DashAnimPlayer
+@onready var camera_2d: Camera2D = $Camera2D
 
 
 
@@ -51,7 +54,7 @@ var coyote_timer: float = 0
 @export var max_energy: float 
 @export var energy = 100
 @export var HealthBar: CustomHealthBar
-
+var dead: bool = false
 
 #STATES
 var current_state: int
@@ -76,6 +79,7 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 func _ready() -> void:
 	add_to_group("can_interact_with_water")
+	dead = false
 	Global.collected_artifacts = 0
 	#HealthBar._setup_health_bar(energy)
 	custom_health_bar.value = energy
@@ -221,8 +225,11 @@ func check_jump():
 	match current_state:
 		FLOOR:
 			input_jump(JUMP_VELOCITY)
+			
 		WATER:
 			input_jump(JUMP_VELOCITY)
+			
+			
 
 
 func check_wall_jump(_direction):
@@ -248,15 +255,19 @@ func input_jump(force):
 					velocity.y += force
 					target_anim = "jump"
 					anim_hold_timer = 0.25
+					AudioManager.play_sound("jump")
 			WATER:
 				velocity.y += force
 				if target_anim != "swim_jump":
 					target_anim = "swim_jump"
 					anim_hold_timer = 0.35
+					AudioManager.play_sound("swim_jump_2")
 			WALL:
 				velocity.y += force
 				target_anim = "wall_jump"
 				anim_hold_timer = 0.25
+				AudioManager.play_sound("wall_jump_2")
+				
 
 
 func check_dash(delta):
@@ -280,6 +291,8 @@ func check_dash(delta):
 		
 		dash_effect()
 		change_energy(5)
+		AudioManager.play_sound("dash")
+		
 	
 		target_anim = "spin"
 		
@@ -307,11 +320,11 @@ func check_dash(delta):
 
 func dash_effect():
 	if can_dash:
-		modulate = Color("ffffff")
+		#modulate = Color("ffffff")
 		global_rotation_degrees = 0
 		
 	else:
-		modulate = Color("111522")
+		dash_anim_player.play("dash")
 		
 
 func lerp_movement(bool):
@@ -337,7 +350,8 @@ func death():
 	if energy <= 0:
 		stun()
 		target_anim = "death"
-		anim_hold_timer = 1
+		anim_hold_timer = 1.0
+
 
 
 func _on_health_health_depleted() -> void:
@@ -346,6 +360,10 @@ func _on_health_health_depleted() -> void:
 
 func _on_health_health_changed(diff: int) -> void:
 	energy += diff * 5
+	AudioManager.play_sound("hit_hurt")
+	hit_anim_player.play("hit")
+	camera_shake(2,5)
+	
 	#custom_health_bar.value = energy
 	energy_label.text = str(energy)
 	stun()
@@ -355,10 +373,17 @@ func stun():
 	can_move = false
 	stun_timer.start()
 
+func camera_shake(max, fade):
+	camera_2d.max_shake = max
+	camera_2d.shake_fade = fade
+	camera_2d._trigger_shake()
+
 func _on_stun_timer_timeout() -> void:
 	can_move = true
 
 
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 	if anim_name == "death":
+		AudioManager.play_sound("death")
+		await get_tree().create_timer(1).timeout
 		get_tree().reload_current_scene()

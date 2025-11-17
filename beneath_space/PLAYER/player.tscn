@@ -1,4 +1,4 @@
-[gd_scene load_steps=77 format=3 uid="uid://c1g1qt38utjwb"]
+[gd_scene load_steps=103 format=3 uid="uid://c1g1qt38utjwb"]
 
 [ext_resource type="Script" uid="uid://bxd7fhtk5cxt" path="res://PLAYER/player.gd" id="1_i10xq"]
 [ext_resource type="Texture2D" uid="uid://xy7ayl5wtlew" path="res://ASSETS/Deltarune Undertale Sprites1.png" id="2_xmmt6"]
@@ -6,11 +6,16 @@
 [ext_resource type="PackedScene" uid="uid://b2h1ca3cqqefc" path="res://SYSTEMS/HITBOX|HURTBOX/hurtbox.tscn" id="4_gvfuq"]
 [ext_resource type="Shader" uid="uid://coyyspyiw13hi" path="res://SYSTEMS/pixel.gdshader" id="5_d1135"]
 [ext_resource type="Texture2D" uid="uid://c7qr5y8gyry8x" path="res://PLAYER/PLAYER_SPRITESS/ZION_v10-sheet.png" id="5_gvfuq"]
+[ext_resource type="Script" uid="uid://dv68dd7pfrrg7" path="res://PLAYER/camera_2d.gd" id="6_688gd"]
+[ext_resource type="Script" uid="uid://iqav0ahjyjef" path="res://PLAYER/spriteFade.gd" id="7_7fthd"]
 [ext_resource type="Texture2D" uid="uid://bot6jf8hwbh45" path="res://ASSETS/WORLD_ASSETS/LIGHT.png" id="7_yrfig"]
 [ext_resource type="PackedScene" uid="uid://c7b8lf7vvnukl" path="res://GUI/custom_health_bar.tscn" id="8_45mp0"]
 [ext_resource type="Texture2D" uid="uid://dunkcpgxhttq" path="res://GUI/HEALTH_BAR_REDO1.png" id="9_3bb6o"]
 [ext_resource type="Texture2D" uid="uid://66eapja0hrkb" path="res://GUI/HEALTH_BAR_REDO2.png" id="10_m2wjv"]
 [ext_resource type="Texture2D" uid="uid://cpyp74epeqo5k" path="res://GUI/COLLECTED_FINAL_STARS.png" id="11_5dkip"]
+[ext_resource type="Script" uid="uid://c0y5u48spng1l" path="res://PLAYER/sprite_trail.gd" id="12_6hrs2"]
+[ext_resource type="Shader" uid="uid://1p8l5gybpucw" path="res://WORLD/star.gdshader" id="14_af28b"]
+[ext_resource type="Texture2D" uid="uid://bmb6yir2ftj51" path="res://PLAYER/PLAYER_SPRITESS/BUBBLE.png" id="16_688gd"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_x3syo"]
 radius = 8.0
@@ -448,7 +453,7 @@ tracks/4/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [0.3]
+"values": [0.5]
 }
 tracks/5/type = "value"
 tracks/5/imported = false
@@ -461,6 +466,18 @@ tracks/5/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Color(1, 1, 1, 0)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("bubbles:emitting")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
 }
 
 [sub_resource type="Animation" id="Animation_wkdj7"]
@@ -719,6 +736,18 @@ tracks/1/keys = {
 "update": 1,
 "values": [0, 1, 2, 3, 4]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("bubbles:emitting")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_6hrs2"]
 resource_name = "wall_jump"
@@ -775,13 +804,201 @@ shader_parameter/corner_pixel = false
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_6hrs2"]
 shader = ExtResource("5_d1135")
-shader_parameter/outline_color = Color(0.733333, 0.764706, 0.815686, 1)
+shader_parameter/outline_color = Color(0.945098, 0.964706, 0.941176, 1)
 shader_parameter/corner_pixel = false
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_7fthd"]
 shader = ExtResource("5_d1135")
 shader_parameter/outline_color = Color(0.733333, 0.764706, 0.815686, 1)
 shader_parameter/corner_pixel = true
+
+[sub_resource type="Animation" id="Animation_688gd"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:material:shader_parameter/outline_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.945098, 0.964706, 0.941176, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_af28b"]
+resource_name = "hit"
+length = 0.5
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:material:shader_parameter/outline_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(0.658824, 0.192157, 0.192157, 1), Color(0.658824, 0.192157, 0.192157, 0), Color(0.658824, 0.192157, 0.192157, 1), Color(0.945098, 0.964706, 0.941176, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_688gd"]
+_data = {
+&"RESET": SubResource("Animation_688gd"),
+&"hit": SubResource("Animation_af28b")
+}
+
+[sub_resource type="Animation" id="Animation_2kxjs"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:material:shader_parameter/outline_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.945098, 0.964706, 0.941176, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("dash:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_7kt33"]
+resource_name = "dash"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:material:shader_parameter/outline_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(0.368627, 0.756863, 0.780392, 1), Color(0.501961, 0.87451, 0.811765, 1), Color(0.635294, 0.937255, 0.823529, 1), Color(0.945098, 0.964706, 0.941176, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("dash:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_bnhob"]
+_data = {
+&"RESET": SubResource("Animation_2kxjs"),
+&"dash": SubResource("Animation_7kt33")
+}
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7kt33"]
+shader = ExtResource("14_af28b")
+shader_parameter/time_speed = 10.0
+shader_parameter/brightness = 1.81
+shader_parameter/tint_color = Color(0.368627, 0.756863, 0.780392, 1)
+shader_parameter/shadow_color = Color(0.635294, 0.937255, 0.823529, 1)
+
+[sub_resource type="Gradient" id="Gradient_af28b"]
+offsets = PackedFloat32Array(0.015444, 1)
+colors = PackedColorArray(0.945098, 0.964706, 0.941176, 1, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_688gd"]
+gradient = SubResource("Gradient_af28b")
+
+[sub_resource type="Curve" id="Curve_2kxjs"]
+_data = [Vector2(0.0174825, 0), 0.0, 0.0, 0, 0, Vector2(0.395105, 0.479923), 0.0, 0.0, 0, 0, Vector2(0.851399, 0.990404), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_bnhob"]
+curve = SubResource("Curve_2kxjs")
+
+[sub_resource type="Curve" id="Curve_7kt33"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_2kxjs"]
+curve = SubResource("Curve_7kt33")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_r330y"]
+lifetime_randomness = 1.0
+particle_flag_disable_z = true
+direction = Vector3(0, 1, 0)
+spread = 64.459
+initial_velocity_min = 28.67
+initial_velocity_max = 96.77
+angular_velocity_min = -30.9
+angular_velocity_max = 45.7
+orbit_velocity_min = 9.49949e-08
+orbit_velocity_max = 9.49949e-08
+radial_velocity_min = -9.10002
+radial_velocity_max = 4.29998
+radial_velocity_curve = SubResource("CurveTexture_bnhob")
+gravity = Vector3(0, 0, 0)
+scale_curve = SubResource("CurveTexture_2kxjs")
+color_ramp = SubResource("GradientTexture1D_688gd")
+
+[sub_resource type="Curve" id="Curve_af28b"]
+_limits = [-360.0, 360.0, 0.0, 1.0]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_688gd"]
+curve = SubResource("Curve_af28b")
+
+[sub_resource type="Gradient" id="Gradient_2kxjs"]
+colors = PackedColorArray(0.945098, 0.964706, 0.941176, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_7kt33"]
+gradient = SubResource("Gradient_2kxjs")
+
+[sub_resource type="Curve" id="Curve_r330y"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.00590491), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_r330y"]
+curve = SubResource("Curve_r330y")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_s3ys8"]
+lifetime_randomness = 1.0
+particle_flag_disable_z = true
+emission_shape_scale = Vector3(0, 0, 1)
+angle_min = -274.2
+angle_max = 158.3
+angle_curve = SubResource("CurveTexture_688gd")
+direction = Vector3(0, 1, 0)
+initial_velocity_min = 12.38
+initial_velocity_max = 78.95
+angular_velocity_min = -95.85
+angular_velocity_max = 51.27
+orbit_velocity_min = -0.149
+orbit_velocity_max = 0.111
+gravity = Vector3(0, 0, 0)
+linear_accel_min = -20.11
+linear_accel_max = 11.65
+scale_min = 0.1
+scale_max = 2.0
+scale_curve = SubResource("CurveTexture_r330y")
+color_ramp = SubResource("GradientTexture1D_7kt33")
 
 [node name="PLAYER" type="CharacterBody2D" node_paths=PackedStringArray("HealthBar") groups=["PLAYER", "can_interact_with_water"]]
 script = ExtResource("1_i10xq")
@@ -790,6 +1007,12 @@ HealthBar = NodePath("CanvasLayer/CustomHealthBar")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 2)
 shape = SubResource("CapsuleShape2D_x3syo")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+material = SubResource("ShaderMaterial_yrfig")
+sprite_frames = SubResource("SpriteFrames_51ci4")
+animation = &"idle"
+script = ExtResource("7_7fthd")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 visible = false
@@ -800,6 +1023,7 @@ texture = ExtResource("2_xmmt6")
 offset = Vector2(0, -16)
 limit_smoothed = true
 position_smoothing_speed = 12.0
+script = ExtResource("6_688gd")
 
 [node name="Health" type="Node" parent="." groups=["PLAYER_HEALTH"]]
 script = ExtResource("3_bql2f")
@@ -807,11 +1031,6 @@ max_health = 100
 
 [node name="hurtbox" parent="." node_paths=PackedStringArray("health") instance=ExtResource("4_gvfuq")]
 health = NodePath("../Health")
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-material = SubResource("ShaderMaterial_yrfig")
-sprite_frames = SubResource("SpriteFrames_51ci4")
-animation = &"idle"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -834,13 +1053,18 @@ one_shot = true
 [node name="EnergyTimer" type="Timer" parent="Timers"]
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
-energy = 0.3
+energy = 0.5
+shadow_enabled = true
+shadow_filter = 2
+shadow_filter_smooth = 1.0
 texture = ExtResource("7_yrfig")
 texture_scale = 6.95
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 0
 
 [node name="energy label" type="Label" parent="CanvasLayer"]
+z_index = -1
 material = SubResource("ShaderMaterial_3bb6o")
 offset_left = 6.0
 offset_top = 52.0
@@ -851,6 +1075,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="CustomHealthBar" parent="CanvasLayer" instance=ExtResource("8_45mp0")]
+z_index = -1
 material = SubResource("ShaderMaterial_45mp0")
 offset_left = 10.0
 offset_top = -2.0
@@ -866,6 +1091,7 @@ texture_progress = ExtResource("10_m2wjv")
 script = null
 
 [node name="Collected_Stars" type="TextureRect" parent="CanvasLayer"]
+z_index = -1
 material = SubResource("ShaderMaterial_6hrs2")
 offset_left = 264.0
 offset_top = 18.0
@@ -888,6 +1114,41 @@ modulate = Color(1, 1, 1, 0)
 offset_right = 320.0
 offset_bottom = 180.0
 color = Color(0.0666667, 0.0823529, 0.133333, 1)
+
+[node name="HitAnimPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_688gd")
+}
+
+[node name="DashAnimPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_bnhob")
+}
+
+[node name="SpriteTrail" type="Node" parent="."]
+script = ExtResource("12_6hrs2")
+
+[node name="dash" type="GPUParticles2D" parent="."]
+material = SubResource("ShaderMaterial_7kt33")
+emitting = false
+amount = 20
+texture = ExtResource("16_688gd")
+speed_scale = 3.0
+explosiveness = 1.0
+randomness = 1.0
+process_material = SubResource("ParticleProcessMaterial_r330y")
+
+[node name="bubbles" type="GPUParticles2D" parent="."]
+z_index = -1
+position = Vector2(0, 14)
+emitting = false
+amount = 15
+texture = ExtResource("16_688gd")
+lifetime = 0.9
+one_shot = true
+explosiveness = 0.31
+randomness = 0.19
+process_material = SubResource("ParticleProcessMaterial_s3ys8")
 
 [connection signal="health_changed" from="Health" to="." method="_on_health_health_changed"]
 [connection signal="health_depleted" from="Health" to="." method="_on_health_health_depleted"]

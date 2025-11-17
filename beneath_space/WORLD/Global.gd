@@ -6,6 +6,7 @@ var collected_orbs: float = 0.0
 
 func _ready() -> void:
 	collected_artifacts = 0
+	
 	collected_coins = 0
 	collected_orbs = 0
 

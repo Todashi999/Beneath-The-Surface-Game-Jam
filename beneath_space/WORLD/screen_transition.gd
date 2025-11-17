@@ -10,6 +10,8 @@ extends Area2D
 func _on_body_entered(body: Node2D) -> void:
 	if body.name == "PLAYER":
 		if is_world_one:
+			AudioManager.stop_sound("main_song_2")
+
 			animation_player.play("fade_in")
 
 

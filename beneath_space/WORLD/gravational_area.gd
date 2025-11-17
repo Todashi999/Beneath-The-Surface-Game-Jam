@@ -11,6 +11,7 @@ func _on_body_entered(body: Node2D) -> void:
 			player.lerp_movement(true)
 			player.upade_stats(-100, 100)
 			player.energy_timer.start()
+			AudioManager.play_sound("water_entered")
 
 
 
@@ -20,4 +21,6 @@ func _on_body_exited(body: Node2D) -> void:
 			player.lerp_movement(false)
 			player.upade_stats(-300, 150)
 			player.energy_timer.stop()
+			AudioManager.play_sound("exit_water")
+			
 	

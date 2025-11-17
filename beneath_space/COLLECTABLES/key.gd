@@ -14,4 +14,5 @@ func _on_body_entered(body: Node2D) -> void:
 		if body.name == "PLAYER" and not collected:
 			collected = true
 			key_collected.emit(key_id)
+			AudioManager.play_sound("idk")
 			animation_player.play("fade_out")

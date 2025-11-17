@@ -1,9 +1,10 @@
-[gd_scene load_steps=11 format=3 uid="uid://b8h7dyh1ah227"]
+[gd_scene load_steps=12 format=3 uid="uid://b8h7dyh1ah227"]
 
 [ext_resource type="Script" uid="uid://b4riyd868jl41" path="res://COLLECTABLES/artifact.gd" id="1_srgl1"]
 [ext_resource type="Shader" uid="uid://coyyspyiw13hi" path="res://SYSTEMS/pixel.gdshader" id="2_mt1wt"]
 [ext_resource type="Texture2D" uid="uid://qbkvq31pxp8c" path="res://ASSETS/WORLD_ASSETS/FINAL_STARS2.png" id="3_mt1wt"]
 [ext_resource type="Texture2D" uid="uid://bot6jf8hwbh45" path="res://ASSETS/WORLD_ASSETS/LIGHT.png" id="3_rfyb4"]
+[ext_resource type="AudioStream" uid="uid://bpt83adnmbm5d" path="res://SOUNDS/granular bell accent 4 Cmaj.wav" id="5_8n55u"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hcgvj"]
 
@@ -211,5 +212,11 @@ color = Color(0.262745, 0.580392, 0.690196, 1)
 energy = 1.5
 texture = ExtResource("3_rfyb4")
 texture_scale = 20.0
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_8n55u")
+volume_db = -15.0
+autoplay = true
+max_distance = 500.0
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

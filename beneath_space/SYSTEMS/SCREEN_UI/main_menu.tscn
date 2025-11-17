@@ -1,8 +1,10 @@
-[gd_scene load_steps=41 format=3 uid="uid://cni0cb0dxsx4u"]
+[gd_scene load_steps=45 format=3 uid="uid://cni0cb0dxsx4u"]
 
 [ext_resource type="Script" uid="uid://dbulfllwxxqss" path="res://SYSTEMS/SCREEN_UI/main_menu.gd" id="1_2437b"]
-[ext_resource type="Script" uid="uid://dyk44w58nvndg" path="res://SYSTEMS/SCREEN_UI/menu_input_manager.gd" id="2_gsptq"]
-[ext_resource type="Script" uid="uid://x0wsli32p3mt" path="res://SYSTEMS/SCREEN_UI/menu_config.gd" id="3_f21en"]
+[ext_resource type="Shader" uid="uid://bj3kofy2ce75e" path="res://SYSTEMS/SCREEN_UI/main_menu_logo_2.gdshader" id="2_1jy5g"]
+[ext_resource type="Shader" uid="uid://m0x071mhug1q" path="res://SYSTEMS/SCREEN_UI/main_menu_logo.gdshader" id="2_k4j6f"]
+[ext_resource type="FontFile" uid="uid://dapys5gus6573" path="res://ASSETS/FONTS/color-basic/Color Basic.otf" id="3_1jy5g"]
+[ext_resource type="Texture2D" uid="uid://cotxrmgvctlhy" path="res://PLAYER/PLAYER_SPRITESS/ZIONV10_LOGO.png" id="3_j1rna"]
 [ext_resource type="Texture2D" uid="uid://d7vtghbe5bwe" path="res://GUI/BUTTON_UI2.png" id="4_bnsbf"]
 [ext_resource type="Texture2D" uid="uid://cvot16v2sa5gh" path="res://GUI/BUTTON_UI3.png" id="4_gtc0s"]
 [ext_resource type="Shader" uid="uid://bn4c8atfkpw5y" path="res://SYSTEMS/SCREEN_UI/glitch_2.gdshader" id="4_j1g8d"]
@@ -16,35 +18,42 @@
 [ext_resource type="Texture2D" uid="uid://bx8ds2dsk1qku" path="res://ASSETS/MY_BACKGROUND/BACKGROUND_REDO3.png" id="13_k4j6f"]
 [ext_resource type="Texture2D" uid="uid://chitx0ul0xvfy" path="res://ASSETS/MY_BACKGROUND/BACKGROUND_REDO2.png" id="14_rd0xh"]
 
-[sub_resource type="Resource" id="Resource_gsptq"]
-script = ExtResource("3_f21en")
-menu_parent = NodePath("../HBoxContainer")
-default_button = NodePath("../HBoxContainer/VBoxContainer/play")
-button_parents = Array[NodePath]([NodePath("../HBoxContainer/VBoxContainer"), NodePath("../HBoxContainer")])
-anim_player = NodePath("")
-show_anim = ""
-hide_anim = ""
-metadata/_custom_type_script = "uid://x0wsli32p3mt"
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6m6bb"]
+shader = ExtResource("2_k4j6f")
+shader_parameter/wave_amplitude = 100.0
+shader_parameter/wave_frequency = 100.0
+shader_parameter/movement_speed = 1.0
+shader_parameter/movement_amplitude = 5.0
 
-[sub_resource type="Resource" id="Resource_f21en"]
-script = ExtResource("3_f21en")
-menu_parent = NodePath("../Settings")
-default_button = NodePath("../Settings/VBoxContainer/back_to_menu")
-button_parents = Array[NodePath]([NodePath("../Settings/VBoxContainer")])
-anim_player = NodePath("")
-show_anim = ""
-hide_anim = ""
-metadata/_custom_type_script = "uid://x0wsli32p3mt"
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3evf5"]
+shader = ExtResource("2_1jy5g")
+shader_parameter/text_color = Color(0.588235, 0.662745, 0.756863, 1)
+shader_parameter/warp_frequency = 10.0
+shader_parameter/warp_amplitude = 5.0
+shader_parameter/warp_speed = 2.0
 
-[sub_resource type="Resource" id="Resource_gtc0s"]
-script = ExtResource("3_f21en")
-menu_parent = NodePath("../options1")
-default_button = NodePath("../options1/exit")
-button_parents = Array[NodePath]([NodePath("../options1")])
-anim_player = NodePath("")
-show_anim = ""
-hide_anim = ""
-metadata/_custom_type_script = "uid://x0wsli32p3mt"
+[sub_resource type="LabelSettings" id="LabelSettings_3evf5"]
+line_spacing = 4.0
+font = ExtResource("3_1jy5g")
+font_size = 20
+outline_size = 4
+outline_color = Color(0.733333, 0.764706, 0.815686, 1)
+shadow_size = 9
+shadow_color = Color(0.733333, 0.764706, 0.815686, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_k28yx"]
+shader = ExtResource("2_1jy5g")
+shader_parameter/text_color = Color(0.588235, 0.662745, 0.756863, 1)
+shader_parameter/warp_frequency = 10.0
+shader_parameter/warp_amplitude = 5.0
+shader_parameter/warp_speed = 2.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_j1rna"]
+shader = ExtResource("2_k4j6f")
+shader_parameter/wave_amplitude = 30.0
+shader_parameter/wave_frequency = 100.0
+shader_parameter/movement_speed = 2.0
+shader_parameter/movement_amplitude = 6.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_n4ls4"]
 shader = ExtResource("4_j1g8d")
@@ -329,14 +338,14 @@ shader_parameter/shadow_color = Color(0.588235, 0.662745, 0.756863, 1)
 offsets = PackedFloat32Array(0, 0.389344, 0.635246, 1)
 colors = PackedColorArray(0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_dq3re"]
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_j1rna"]
 gradient = SubResource("Gradient_j1rna")
 
 [sub_resource type="Curve" id="Curve_3evf5"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.751825, 0.98374), 0.0, 0.0, 0, 0, Vector2(1, 0.5), 0.0, 0.0, 0, 0]
 point_count = 3
 
-[sub_resource type="CurveTexture" id="CurveTexture_vfncc"]
+[sub_resource type="CurveTexture" id="CurveTexture_3evf5"]
 curve = SubResource("Curve_3evf5")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_k28yx"]
@@ -346,8 +355,8 @@ emission_shape = 3
 emission_box_extents = Vector3(1, 1, 1)
 gravity = Vector3(0, 0, 0)
 scale_min = 0.1
-scale_curve = SubResource("CurveTexture_vfncc")
-color_ramp = SubResource("GradientTexture1D_dq3re")
+scale_curve = SubResource("CurveTexture_3evf5")
+color_ramp = SubResource("GradientTexture1D_j1rna")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_rd0xh"]
 shader = ExtResource("12_f5wyx")
@@ -411,13 +420,57 @@ _data = {
 process_mode = 3
 script = ExtResource("1_2437b")
 
-[node name="MenuInputManager" type="Node" parent="."]
-script = ExtResource("2_gsptq")
-base_menu = SubResource("Resource_gsptq")
-popup_menus = Array[ExtResource("3_f21en")]([SubResource("Resource_f21en"), SubResource("Resource_gtc0s")])
-metadata/_custom_type_script = "uid://dyk44w58nvndg"
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+color = Color(0.835294, 0.839216, 0.858824, 1)
+
+[node name="TextureRect" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_6m6bb")
+offset_left = 44.0
+offset_top = 8.0
+offset_right = 364.0
+offset_bottom = 188.0
+texture = ExtResource("3_j1rna")
+
+[node name="TitleTheme2" type="Label" parent="."]
+material = SubResource("ShaderMaterial_3evf5")
+offset_left = 32.0
+offset_top = 32.0
+offset_right = 124.0
+offset_bottom = 57.0
+text = "aSTRaL"
+label_settings = SubResource("LabelSettings_3evf5")
+
+[node name="Label2" type="Label" parent="TitleTheme2"]
+material = SubResource("ShaderMaterial_k28yx")
+layout_mode = 0
+offset_left = 24.0
+offset_top = 24.0
+offset_right = 131.0
+offset_bottom = 49.0
+text = "PaRaDoX"
+label_settings = SubResource("LabelSettings_3evf5")
+
+[node name="TitleTheme" type="Label" parent="."]
+material = SubResource("ShaderMaterial_j1rna")
+offset_left = 32.0
+offset_top = 36.0
+offset_right = 124.0
+offset_bottom = 61.0
+text = "aSTRaL"
+label_settings = SubResource("LabelSettings_3evf5")
+
+[node name="Label2" type="Label" parent="TitleTheme"]
+material = SubResource("ShaderMaterial_j1rna")
+layout_mode = 0
+offset_left = 24.0
+offset_top = 16.0
+offset_right = 116.0
+offset_bottom = 41.0
+text = "PaRaDoX"
+label_settings = SubResource("LabelSettings_3evf5")
 
 [node name="Title" type="Label" parent="."]
+visible = false
 material = SubResource("ShaderMaterial_n4ls4")
 offset_left = 36.0
 offset_top = 36.0
@@ -463,7 +516,6 @@ layout_mode = 2
 texture_normal = ExtResource("5_bnsbf")
 texture_pressed = ExtResource("4_gtc0s")
 texture_hover = ExtResource("4_bnsbf")
-texture_focused = ExtResource("4_bnsbf")
 
 [node name="Label" type="Label" parent="HBoxContainer/VBoxContainer/play"]
 material = SubResource("ShaderMaterial_6xgiy")
@@ -496,7 +548,6 @@ layout_mode = 2
 texture_normal = ExtResource("5_bnsbf")
 texture_pressed = ExtResource("4_gtc0s")
 texture_hover = ExtResource("4_bnsbf")
-texture_focused = ExtResource("4_bnsbf")
 
 [node name="Label" type="Label" parent="HBoxContainer/VBoxContainer/exit_game"]
 material = SubResource("ShaderMaterial_f5wyx")
@@ -559,6 +610,7 @@ offset_bottom = 16.0
 z_index = -1
 offset_right = 320.0
 offset_bottom = 180.0
+mouse_filter = 2
 texture = ExtResource("14_rd0xh")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
@@ -567,6 +619,7 @@ texture = ExtResource("14_rd0xh")
 modulate = Color(1, 1, 1, 0)
 offset_right = 320.0
 offset_bottom = 180.0
+mouse_filter = 2
 color = Color(0.0666667, 0.0823529, 0.133333, 1)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer"]
@@ -620,6 +673,7 @@ process_mode = 3
 z_index = 4
 offset_right = 320.0
 offset_bottom = 180.0
+mouse_filter = 2
 color = Color(0.0666667, 0.0823529, 0.133333, 1)
 
 [node name="TransitionAnimationPlayer" type="AnimationPlayer" parent="CanvasLayer2/ColorRect"]
